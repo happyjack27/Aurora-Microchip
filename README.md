@@ -11,8 +11,8 @@ This archive is intended to be unpacked directly into a Git repository.
 - `isa/database/aurora_v1_2_instruction_table.csv`
 - `docs/abi/Aurora_Architecture_v1_2_ABI_Specification.docx`
 - `docs/governance/Aurora_Architecture_Decision_Register_ADR_v1_2.docx`
-- `scheduler/README.md`
-- `scheduler/aurora_scheduler_reference.c`
+- `code/programs/scheduler/README.md`
+- `code/programs/scheduler/aurora_scheduler_reference.c`
 
 ## Important warning
 

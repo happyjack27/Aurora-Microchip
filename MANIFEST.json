@@ -790,12 +790,12 @@
     "sha256": "20d50d296dabadc005fd132c68e8a455f58661e0ee8ea42a9877d97f658d4dcf"
   },
   {
-    "path": "scheduler/README.md",
+    "path": "code/programs/scheduler/README.md",
     "bytes": 1648,
     "sha256": "531bc0554e90d2f76c6d518524e139347e8584133e2d06cd98316b551f78e78e"
   },
   {
-    "path": "scheduler/aurora_scheduler_reference.c",
+    "path": "code/programs/scheduler/aurora_scheduler_reference.c",
     "bytes": 2373,
     "sha256": "6491e581e1dc9cad442def52620f4e918c820dfccd2a7236e1670b4ab9873598"
   }
