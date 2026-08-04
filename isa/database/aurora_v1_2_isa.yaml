@@ -1,0 +1,2112 @@
+schema_version: 1.0
+architecture: Aurora
+architecture_version: 1.2
+endianness: little
+instruction_word_bits: 16
+native_register_bits: 32
+register_count: 16
+primary_opcode_bits: 4
+primary_opcode_map:
+  0x0: ALU_REG
+  0x1: ALU_IMM
+  0x2: SHIFT_ROTATE
+  0x3: MULDIV
+  0x4: DSP_REDUCE
+  0x5: PACK_SHUFFLE
+  0x6: LOAD
+  0x7: STORE
+  0x8: BRANCH_COND
+  0x9: CONTROL_FLOW
+  0xA: STACK
+  0xB: STREAM
+  0xC: LOOP_AGU
+  0xD: SYSTEM
+  0xE: EXTENSION
+  0xF: CUSTOM_RESERVED
+modes:
+  SCALAR32:
+    code: 0
+    lane_bits: 32
+    lanes: 1
+  PACKED16:
+    code: 1
+    lane_bits: 16
+    lanes: 2
+  PACKED8:
+    code: 2
+    lane_bits: 8
+    lanes: 4
+  LOW16:
+    code: 3
+    lane_bits: 16
+    lanes: 1
+    preserve_upper: true
+  LOW8:
+    code: 4
+    lane_bits: 8
+    lanes: 1
+    preserve_upper: true
+  PAIRED64:
+    code: 5
+    lane_bits: 64
+    lanes: 1
+    paired: true
+  RESERVED6:
+    code: 6
+    reserved: true
+  RESERVED7:
+    code: 7
+    reserved: true
+registers:
+  R0:
+    abi: arg0_ret0_q0
+  R1:
+    abi: arg1_q0_hi
+  R2:
+    abi: arg2
+  R3:
+    abi: arg3
+  R4:
+    abi: temp_q1
+  R5:
+    abi: temp_q1_hi
+  R6:
+    abi: temp
+  R7:
+    abi: temp
+  R8:
+    abi: temp_a0
+    accumulator: A0
+  R9:
+    abi: temp
+  R10:
+    abi: callee_saved_a1
+    accumulator: A1
+  R11:
+    abi: callee_saved
+  R12:
+    abi: callee_saved_fp_optional
+  R13:
+    abi: link_register_conditional_gpr
+  R14:
+    abi: stack_pointer
+  R15:
+    abi: program_counter
+paired64:
+  writable_pairs:
+    - "R0:R1"
+    - "R2:R3"
+    - "R4:R5"
+    - "R6:R7"
+    - "R8:R9"
+    - "R10:R11"
+    - "R12:R13"
+  conditional_pairs:
+    "R12:R13": valid only when LR value is not live or has been saved
+  zero_extended_sources:
+    - R14
+    - R15
+  forbidden_destinations:
+    - R14
+    - R15
+issue:
+  window_entries: 4
+  width: 2
+  architectural_retirement: in_order
+  register_renaming: false
+  general_reorder_buffer: false
+  slots:
+    A:
+      - scalar_alu
+      - control
+      - address
+      - simple_shuffle
+    B:
+      - packed_dsp
+      - multiply
+      - divide
+      - reduction
+      - stream
+      - memory
+instructions:
+  -
+    mnemonic: ADD
+    primary: 0x0
+    subop: 0
+    format: RRR
+    operands:
+      - Rd
+      - Ra
+      - Rb
+    semantics: Rd = Ra + Rb
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+      - C
+      - V
+    exceptions:
+    attributes:
+      - honors_lane_mask
+    aliases:
+  -
+    mnemonic: SUB
+    primary: 0x0
+    subop: 1
+    format: RRR
+    operands:
+      - Rd
+      - Ra
+      - Rb
+    semantics: "Rd = Ra - Rb"
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+      - C
+      - V
+    exceptions:
+    attributes:
+      - honors_lane_mask
+    aliases:
+  -
+    mnemonic: AND
+    primary: 0x0
+    subop: 2
+    format: RRR
+    operands:
+      - Rd
+      - Ra
+      - Rb
+    semantics: "Rd = Ra & Rb"
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+      - honors_lane_mask
+    aliases:
+  -
+    mnemonic: OR
+    primary: 0x0
+    subop: 3
+    format: RRR
+    operands:
+      - Rd
+      - Ra
+      - Rb
+    semantics: "Rd = Ra | Rb"
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+      - honors_lane_mask
+    aliases:
+  -
+    mnemonic: XOR
+    primary: 0x0
+    subop: 4
+    format: RRR
+    operands:
+      - Rd
+      - Ra
+      - Rb
+    semantics: Rd = Ra ^ Rb
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+      - honors_lane_mask
+    aliases:
+  -
+    mnemonic: CMP
+    primary: 0x0
+    subop: 5
+    format: RRR
+    operands:
+      - Rd
+      - Ra
+      - Rb
+    semantics: "flags = Ra - Rb"
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+      - C
+      - V
+    exceptions:
+    attributes:
+      - honors_lane_mask
+    aliases:
+  -
+    mnemonic: MIN
+    primary: 0x0
+    subop: 6
+    format: RRR
+    operands:
+      - Rd
+      - Ra
+      - Rb
+    semantics: "Rd = min(Ra,Rb)"
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+      - honors_lane_mask
+    aliases:
+  -
+    mnemonic: MAX
+    primary: 0x0
+    subop: 7
+    format: RRR
+    operands:
+      - Rd
+      - Ra
+      - Rb
+    semantics: "Rd = max(Ra,Rb)"
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+      - honors_lane_mask
+    aliases:
+  -
+    mnemonic: ADDI
+    primary: 0x1
+    subop: 0
+    format: RRI
+    operands:
+      - Rd/Ra
+      - imm
+    semantics: ADD with immediate
+    modes:
+      - SCALAR32
+      - LOW16
+      - LOW8
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+      - C
+      - V
+    exceptions:
+    attributes:
+      - honors_lane_mask
+      - extension_allowed
+    aliases:
+  -
+    mnemonic: SUBI
+    primary: 0x1
+    subop: 1
+    format: RRI
+    operands:
+      - Rd/Ra
+      - imm
+    semantics: SUB with immediate
+    modes:
+      - SCALAR32
+      - LOW16
+      - LOW8
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+      - C
+      - V
+    exceptions:
+    attributes:
+      - honors_lane_mask
+      - extension_allowed
+    aliases:
+  -
+    mnemonic: ANDI
+    primary: 0x1
+    subop: 2
+    format: RRI
+    operands:
+      - Rd/Ra
+      - imm
+    semantics: AND with immediate
+    modes:
+      - SCALAR32
+      - LOW16
+      - LOW8
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+      - honors_lane_mask
+      - extension_allowed
+    aliases:
+  -
+    mnemonic: ORI
+    primary: 0x1
+    subop: 3
+    format: RRI
+    operands:
+      - Rd/Ra
+      - imm
+    semantics: OR with immediate
+    modes:
+      - SCALAR32
+      - LOW16
+      - LOW8
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+      - honors_lane_mask
+      - extension_allowed
+    aliases:
+  -
+    mnemonic: XORI
+    primary: 0x1
+    subop: 4
+    format: RRI
+    operands:
+      - Rd/Ra
+      - imm
+    semantics: XOR with immediate
+    modes:
+      - SCALAR32
+      - LOW16
+      - LOW8
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+      - honors_lane_mask
+      - extension_allowed
+    aliases:
+  -
+    mnemonic: CMPI
+    primary: 0x1
+    subop: 5
+    format: RRI
+    operands:
+      - Rd/Ra
+      - imm
+    semantics: CMP with immediate
+    modes:
+      - SCALAR32
+      - LOW16
+      - LOW8
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+      - C
+      - V
+    exceptions:
+    attributes:
+      - honors_lane_mask
+      - extension_allowed
+    aliases:
+  -
+    mnemonic: LSL
+    primary: 0x2
+    subop: 0
+    format: SHIFT
+    operands:
+      - Rd/Ra
+      - count
+    semantics: LSL by immediate or register count
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 2
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+      - C
+    exceptions:
+    attributes:
+      - honors_lane_mask
+      - paired64_multicycle
+    aliases:
+  -
+    mnemonic: LSR
+    primary: 0x2
+    subop: 1
+    format: SHIFT
+    operands:
+      - Rd/Ra
+      - count
+    semantics: LSR by immediate or register count
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 2
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+      - C
+    exceptions:
+    attributes:
+      - honors_lane_mask
+      - paired64_multicycle
+    aliases:
+  -
+    mnemonic: ASR
+    primary: 0x2
+    subop: 2
+    format: SHIFT
+    operands:
+      - Rd/Ra
+      - count
+    semantics: ASR by immediate or register count
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 2
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+      - C
+    exceptions:
+    attributes:
+      - honors_lane_mask
+      - paired64_multicycle
+    aliases:
+  -
+    mnemonic: ROL
+    primary: 0x2
+    subop: 3
+    format: SHIFT
+    operands:
+      - Rd/Ra
+      - count
+    semantics: ROL by immediate or register count
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 2
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+      - C
+    exceptions:
+    attributes:
+      - honors_lane_mask
+      - paired64_multicycle
+    aliases:
+  -
+    mnemonic: ROR
+    primary: 0x2
+    subop: 4
+    format: SHIFT
+    operands:
+      - Rd/Ra
+      - count
+    semantics: ROR by immediate or register count
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 2
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+      - C
+    exceptions:
+    attributes:
+      - honors_lane_mask
+      - paired64_multicycle
+    aliases:
+  -
+    mnemonic: MUL
+    primary: 0x3
+    subop: 0
+    format: RRR_OR_ACC
+    operands:
+      - dst
+      - Ra
+      - Rb
+    semantics: "full-width product"
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - PAIRED64
+    issue_slot: B
+    latency: 3
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+      - scoreboarded
+      - multicycle
+    aliases:
+  -
+    mnemonic: MULH
+    primary: 0x3
+    subop: 1
+    format: RRR_OR_ACC
+    operands:
+      - dst
+      - Ra
+      - Rb
+    semantics: high half of product
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - SCALAR32
+    issue_slot: B
+    latency: 3
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+      - scoreboarded
+      - multicycle
+    aliases:
+  -
+    mnemonic: MAC
+    primary: 0x3
+    subop: 2
+    format: RRR_OR_ACC
+    operands:
+      - dst
+      - Ra
+      - Rb
+    semantics: "A = A + Ra*Rb"
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - SCALAR32
+    issue_slot: B
+    latency: 3
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+      - scoreboarded
+      - multicycle
+    aliases:
+  -
+    mnemonic: MAS
+    primary: 0x3
+    subop: 3
+    format: RRR_OR_ACC
+    operands:
+      - dst
+      - Ra
+      - Rb
+    semantics: "A = A - Ra*Rb"
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - SCALAR32
+    issue_slot: B
+    latency: 3
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+      - scoreboarded
+      - multicycle
+    aliases:
+  -
+    mnemonic: DIVSTEP
+    primary: 0x3
+    subop: 4
+    format: RRR_OR_ACC
+    operands:
+      - dst
+      - Ra
+      - Rb
+    semantics: one radix divide step
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - SCALAR32
+    issue_slot: B
+    latency: 1
+    initiation_interval: 1
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+    aliases:
+  -
+    mnemonic: DIV
+    primary: 0x3
+    subop: 5
+    format: RRR_OR_ACC
+    operands:
+      - dst
+      - Ra
+      - Rb
+    semantics: "multi-cycle integer divide"
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - PAIRED64
+    issue_slot: B
+    latency: 16
+    initiation_interval: 16
+    flags:
+      - Z
+      - N
+    exceptions:
+    attributes:
+      - scoreboarded
+      - multicycle
+    aliases:
+  -
+    mnemonic: REDUCE.ADD
+    primary: 0x4
+    subop: 0
+    format: DSP_RED
+    operands:
+      - A0/A1
+      - src
+      - overwrite/fold
+      - consume/local
+    semantics: "Reduce active lanes with ADD; fold form combines with accumulator using operator-specific rule"
+    modes:
+      - PACKED16
+      - PACKED8
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - scoreboarded
+      - stream_override
+      - accumulator_select
+      - fold_capable
+    aliases:
+  -
+    mnemonic: REDUCE.AND
+    primary: 0x4
+    subop: 1
+    format: DSP_RED
+    operands:
+      - A0/A1
+      - src
+      - overwrite/fold
+      - consume/local
+    semantics: "Reduce active lanes with AND; fold form combines with accumulator using operator-specific rule"
+    modes:
+      - PACKED16
+      - PACKED8
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - scoreboarded
+      - stream_override
+      - accumulator_select
+      - fold_capable
+    aliases:
+  -
+    mnemonic: REDUCE.OR
+    primary: 0x4
+    subop: 2
+    format: DSP_RED
+    operands:
+      - A0/A1
+      - src
+      - overwrite/fold
+      - consume/local
+    semantics: "Reduce active lanes with OR; fold form combines with accumulator using operator-specific rule"
+    modes:
+      - PACKED16
+      - PACKED8
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - scoreboarded
+      - stream_override
+      - accumulator_select
+      - fold_capable
+    aliases:
+  -
+    mnemonic: REDUCE.XOR
+    primary: 0x4
+    subop: 3
+    format: DSP_RED
+    operands:
+      - A0/A1
+      - src
+      - overwrite/fold
+      - consume/local
+    semantics: "Reduce active lanes with XOR; fold form combines with accumulator using operator-specific rule"
+    modes:
+      - PACKED16
+      - PACKED8
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - scoreboarded
+      - stream_override
+      - accumulator_select
+      - fold_capable
+    aliases:
+  -
+    mnemonic: REDUCE.MIN
+    primary: 0x4
+    subop: 4
+    format: DSP_RED
+    operands:
+      - A0/A1
+      - src
+      - overwrite/fold
+      - consume/local
+    semantics: "Reduce active lanes with MIN; fold form combines with accumulator using operator-specific rule"
+    modes:
+      - PACKED16
+      - PACKED8
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - scoreboarded
+      - stream_override
+      - accumulator_select
+      - fold_capable
+    aliases:
+  -
+    mnemonic: REDUCE.MAX
+    primary: 0x4
+    subop: 5
+    format: DSP_RED
+    operands:
+      - A0/A1
+      - src
+      - overwrite/fold
+      - consume/local
+    semantics: "Reduce active lanes with MAX; fold form combines with accumulator using operator-specific rule"
+    modes:
+      - PACKED16
+      - PACKED8
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - scoreboarded
+      - stream_override
+      - accumulator_select
+      - fold_capable
+    aliases:
+  -
+    mnemonic: REDUCE.ABSMAX
+    primary: 0x4
+    subop: 6
+    format: DSP_RED
+    operands:
+      - A0/A1
+      - src
+      - overwrite/fold
+      - consume/local
+    semantics: "Reduce active lanes with ABSMAX; fold form combines with accumulator using operator-specific rule"
+    modes:
+      - PACKED16
+      - PACKED8
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - scoreboarded
+      - stream_override
+      - accumulator_select
+      - fold_capable
+    aliases:
+  -
+    mnemonic: REDUCE.COUNT
+    primary: 0x4
+    subop: 7
+    format: DSP_RED
+    operands:
+      - A0/A1
+      - src
+      - overwrite/fold
+      - consume/local
+    semantics: "Reduce active lanes with COUNT; fold form combines with accumulator using operator-specific rule"
+    modes:
+      - PACKED16
+      - PACKED8
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - scoreboarded
+      - stream_override
+      - accumulator_select
+      - fold_capable
+    aliases:
+  -
+    mnemonic: DOT
+    primary: 0x4
+    subop: 8
+    format: DSP_DOT
+    operands:
+      - A0/A1
+      - src0
+      - src1
+      - overwrite/fold
+      - consume/local
+    semantics: Sum lane products into selected accumulator
+    modes:
+      - PACKED16
+      - PACKED8
+    issue_slot: B
+    latency: 3
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - scoreboarded
+      - stream_override
+      - accumulator_select
+      - fold_capable
+    aliases:
+  -
+    mnemonic: SAD
+    primary: 0x4
+    subop: 9
+    format: DSP_SAD
+    operands:
+      - A0/A1
+      - src0
+      - src1
+      - overwrite/fold
+      - consume/local
+    semantics: Sum absolute lane differences into selected accumulator
+    modes:
+      - PACKED16
+      - PACKED8
+    issue_slot: B
+    latency: 3
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - scoreboarded
+      - stream_override
+      - accumulator_select
+      - fold_capable
+    aliases:
+  -
+    mnemonic: PACK
+    primary: 0x5
+    subop: 0
+    format: RR_OR_UNARY
+    operands:
+      - Rd
+      - Rs/Ra
+      - Rb?
+    semantics: PACK register layout operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - register_only
+      - ignores_lane_mask
+      - dynamic_pairing_candidate
+    aliases:
+  -
+    mnemonic: UNPACK
+    primary: 0x5
+    subop: 1
+    format: RR_OR_UNARY
+    operands:
+      - Rd
+      - Rs/Ra
+      - Rb?
+    semantics: UNPACK register layout operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - register_only
+      - ignores_lane_mask
+      - dynamic_pairing_candidate
+    aliases:
+  -
+    mnemonic: ZIP
+    primary: 0x5
+    subop: 2
+    format: RR_OR_UNARY
+    operands:
+      - Rd
+      - Rs/Ra
+      - Rb?
+    semantics: ZIP register layout operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - register_only
+      - ignores_lane_mask
+      - dynamic_pairing_candidate
+    aliases:
+  -
+    mnemonic: UNZIP
+    primary: 0x5
+    subop: 3
+    format: RR_OR_UNARY
+    operands:
+      - Rd
+      - Rs/Ra
+      - Rb?
+    semantics: UNZIP register layout operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - register_only
+      - ignores_lane_mask
+      - dynamic_pairing_candidate
+    aliases:
+  -
+    mnemonic: BSWAP
+    primary: 0x5
+    subop: 4
+    format: RR_OR_UNARY
+    operands:
+      - Rd
+      - Rs/Ra
+      - Rb?
+    semantics: BSWAP register layout operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - register_only
+      - ignores_lane_mask
+      - dynamic_pairing_candidate
+    aliases:
+  -
+    mnemonic: WSWAP
+    primary: 0x5
+    subop: 5
+    format: RR_OR_UNARY
+    operands:
+      - Rd
+      - Rs/Ra
+      - Rb?
+    semantics: WSWAP register layout operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - register_only
+      - ignores_lane_mask
+      - dynamic_pairing_candidate
+    aliases:
+  -
+    mnemonic: SHUFFLE
+    primary: 0x5
+    subop: 6
+    format: RR_OR_UNARY
+    operands:
+      - Rd
+      - Rs/Ra
+      - Rb?
+    semantics: SHUFFLE register layout operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - register_only
+      - ignores_lane_mask
+      - dynamic_pairing_candidate
+    aliases:
+  -
+    mnemonic: MOV
+    primary: 0x5
+    subop: 7
+    format: RR_OR_UNARY
+    operands:
+      - Rd
+      - Rs/Ra
+      - Rb?
+    semantics: MOV register layout operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - register_only
+      - ignores_lane_mask
+      - dynamic_pairing_candidate
+    aliases:
+  -
+    mnemonic: LD
+    primary: 0x6
+    subop: 0
+    format: MEM
+    operands:
+      - Rd
+      - "[base+offset]"
+    semantics: Load scalar or pair according to mode
+    modes:
+      - SCALAR32
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - alignment
+      - access_fault
+    attributes:
+      - scoreboarded
+      - ordered_memory
+    aliases:
+  -
+    mnemonic: ST
+    primary: 0x7
+    subop: 0
+    format: MEM
+    operands:
+      - Rs
+      - "[base+offset]"
+    semantics: Store scalar or pair according to mode
+    modes:
+      - SCALAR32
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: B
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - alignment
+      - access_fault
+    attributes:
+      - ordered_memory
+      - store_order_barrier
+    aliases:
+  -
+    mnemonic: B.EQ
+    primary: 0x8
+    subop: 0
+    format: BR
+    operands:
+      - target
+    semantics: Conditional branch EQ
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - branch_target_fault
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: B.NE
+    primary: 0x8
+    subop: 1
+    format: BR
+    operands:
+      - target
+    semantics: Conditional branch NE
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - branch_target_fault
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: B.LT
+    primary: 0x8
+    subop: 2
+    format: BR
+    operands:
+      - target
+    semantics: Conditional branch LT
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - branch_target_fault
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: B.GE
+    primary: 0x8
+    subop: 3
+    format: BR
+    operands:
+      - target
+    semantics: Conditional branch GE
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - branch_target_fault
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: B.LTU
+    primary: 0x8
+    subop: 4
+    format: BR
+    operands:
+      - target
+    semantics: Conditional branch LTU
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - branch_target_fault
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: B.GEU
+    primary: 0x8
+    subop: 5
+    format: BR
+    operands:
+      - target
+    semantics: Conditional branch GEU
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - branch_target_fault
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: B.MI
+    primary: 0x8
+    subop: 6
+    format: BR
+    operands:
+      - target
+    semantics: Conditional branch MI
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - branch_target_fault
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: B.PL
+    primary: 0x8
+    subop: 7
+    format: BR
+    operands:
+      - target
+    semantics: Conditional branch PL
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - branch_target_fault
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: CALL
+    primary: 0x9
+    subop: 0
+    format: CTRL
+    operands:
+      - target/reg
+    semantics: R13 = return address; PC = target
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: JMP
+    primary: 0x9
+    subop: 1
+    format: CTRL
+    operands:
+      - target/reg
+    semantics: PC = target
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: RET
+    primary: 0x9
+    subop: 2
+    format: CTRL
+    operands:
+      - target/reg
+    semantics: PC = R13
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: JMPR
+    primary: 0x9
+    subop: 3
+    format: CTRL
+    operands:
+      - target/reg
+    semantics: PC = register
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: PUSH
+    primary: 0xA
+    subop: 0
+    format: STACK
+    operands:
+      - reg/mask
+    semantics: PUSH using R14 stack pointer
+    modes:
+      - SCALAR32
+      - PAIRED64
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - alignment
+      - access_fault
+    attributes:
+      - ordered_memory
+      - extension_allowed
+    aliases:
+  -
+    mnemonic: POP
+    primary: 0xA
+    subop: 1
+    format: STACK
+    operands:
+      - reg/mask
+    semantics: POP using R14 stack pointer
+    modes:
+      - SCALAR32
+      - PAIRED64
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - alignment
+      - access_fault
+    attributes:
+      - ordered_memory
+      - extension_allowed
+    aliases:
+  -
+    mnemonic: PUSHM
+    primary: 0xA
+    subop: 2
+    format: STACK
+    operands:
+      - reg/mask
+    semantics: PUSHM using R14 stack pointer
+    modes:
+      - SCALAR32
+      - PAIRED64
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - alignment
+      - access_fault
+    attributes:
+      - ordered_memory
+      - extension_allowed
+    aliases:
+  -
+    mnemonic: POPM
+    primary: 0xA
+    subop: 3
+    format: STACK
+    operands:
+      - reg/mask
+    semantics: POPM using R14 stack pointer
+    modes:
+      - SCALAR32
+      - PAIRED64
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - alignment
+      - access_fault
+    attributes:
+      - ordered_memory
+      - extension_allowed
+    aliases:
+  -
+    mnemonic: QMASK
+    primary: 0xB
+    subop: 0
+    format: STREAM
+    operands:
+      - Q0/Q1
+      - args
+    semantics: QMASK stream/queue operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - PAIRED64
+    issue_slot: B
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - stream_state
+      - control_barrier
+    aliases:
+  -
+    mnemonic: QPEEK
+    primary: 0xB
+    subop: 1
+    format: STREAM
+    operands:
+      - Q0/Q1
+      - args
+    semantics: QPEEK stream/queue operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - PAIRED64
+    issue_slot: B
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - stream_state
+      - scoreboarded
+    aliases:
+  -
+    mnemonic: QPUSH
+    primary: 0xB
+    subop: 2
+    format: STREAM
+    operands:
+      - Q0/Q1
+      - args
+    semantics: QPUSH stream/queue operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - PAIRED64
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - stream_state
+      - scoreboarded
+    aliases:
+  -
+    mnemonic: QPOP
+    primary: 0xB
+    subop: 3
+    format: STREAM
+    operands:
+      - Q0/Q1
+      - args
+    semantics: QPOP stream/queue operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - PAIRED64
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - stream_state
+      - scoreboarded
+    aliases:
+  -
+    mnemonic: QDUP
+    primary: 0xB
+    subop: 4
+    format: STREAM
+    operands:
+      - Q0/Q1
+      - args
+    semantics: QDUP stream/queue operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - PAIRED64
+    issue_slot: B
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - stream_state
+      - scoreboarded
+    aliases:
+  -
+    mnemonic: QREPL
+    primary: 0xB
+    subop: 5
+    format: STREAM
+    operands:
+      - Q0/Q1
+      - args
+    semantics: QREPL stream/queue operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - PAIRED64
+    issue_slot: B
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - stream_state
+      - scoreboarded
+    aliases:
+  -
+    mnemonic: QCFG
+    primary: 0xB
+    subop: 6
+    format: STREAM
+    operands:
+      - Q0/Q1
+      - args
+    semantics: QCFG stream/queue operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - PAIRED64
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - stream_state
+      - scoreboarded
+    aliases:
+  -
+    mnemonic: QCIRC
+    primary: 0xB
+    subop: 7
+    format: STREAM
+    operands:
+      - Q0/Q1
+      - args
+    semantics: QCIRC stream/queue operation
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - PAIRED64
+    issue_slot: B
+    latency: 2
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - stream_state
+      - scoreboarded
+    aliases:
+  -
+    mnemonic: LOOPSET
+    primary: 0xC
+    subop: 0
+    format: LOOP_AGU
+    operands:
+      - args
+    semantics: "LOOPSET low-overhead loop or address-generation control"
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: LOOPEND
+    primary: 0xC
+    subop: 1
+    format: LOOP_AGU
+    operands:
+      - args
+    semantics: "LOOPEND low-overhead loop or address-generation control"
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - control_barrier
+    aliases:
+  -
+    mnemonic: AGUCFG
+    primary: 0xC
+    subop: 2
+    format: LOOP_AGU
+    operands:
+      - args
+    semantics: "AGUCFG low-overhead loop or address-generation control"
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+    aliases:
+  -
+    mnemonic: STRIDE
+    primary: 0xC
+    subop: 3
+    format: LOOP_AGU
+    operands:
+      - args
+    semantics: "STRIDE low-overhead loop or address-generation control"
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+    aliases:
+  -
+    mnemonic: MRS
+    primary: 0xD
+    subop: 0
+    format: SYSTEM
+    operands:
+      - args
+    semantics: MRS system operation
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - privilege_fault
+    attributes:
+      - privileged
+    aliases:
+  -
+    mnemonic: MSR
+    primary: 0xD
+    subop: 1
+    format: SYSTEM
+    operands:
+      - args
+    semantics: MSR system operation
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - privilege_fault
+    attributes:
+      - privileged
+    aliases:
+  -
+    mnemonic: EI
+    primary: 0xD
+    subop: 2
+    format: SYSTEM
+    operands:
+      - args
+    semantics: EI system operation
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - privilege_fault
+    attributes:
+      - privileged
+    aliases:
+  -
+    mnemonic: DI
+    primary: 0xD
+    subop: 3
+    format: SYSTEM
+    operands:
+      - args
+    semantics: DI system operation
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - privilege_fault
+    attributes:
+      - privileged
+    aliases:
+  -
+    mnemonic: IRET
+    primary: 0xD
+    subop: 4
+    format: SYSTEM
+    operands:
+      - args
+    semantics: IRET system operation
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - privilege_fault
+    attributes:
+      - privileged
+    aliases:
+  -
+    mnemonic: ASCALL
+    primary: 0xD
+    subop: 5
+    format: SYSTEM
+    operands:
+      - args
+    semantics: ASCALL system operation
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - privilege_fault
+    attributes:
+      - privileged
+    aliases:
+  -
+    mnemonic: TIMERLOAD
+    primary: 0xD
+    subop: 6
+    format: SYSTEM
+    operands:
+      - args
+    semantics: TIMERLOAD system operation
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - privilege_fault
+    attributes:
+      - privileged
+    aliases:
+  -
+    mnemonic: TIMERVEC
+    primary: 0xD
+    subop: 7
+    format: SYSTEM
+    operands:
+      - args
+    semantics: TIMERVEC system operation
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - privilege_fault
+    attributes:
+      - privileged
+    aliases:
+  -
+    mnemonic: TIMERCTL
+    primary: 0xD
+    subop: 8
+    format: SYSTEM
+    operands:
+      - args
+    semantics: TIMERCTL system operation
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - privilege_fault
+    attributes:
+      - privileged
+    aliases:
+  -
+    mnemonic: RDCYCLE
+    primary: 0xD
+    subop: 9
+    format: SYSTEM
+    operands:
+      - args
+    semantics: RDCYCLE system operation
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - special_register_read
+    aliases:
+  -
+    mnemonic: EXT
+    primary: 0xE
+    subop: 0
+    format: EXT
+    operands:
+      - extension_word
+    semantics: "Extension escape for long immediates, masks, addresses, and system forms"
+    modes:
+      - SCALAR32
+      - PACKED16
+      - PACKED8
+      - LOW16
+      - LOW8
+      - PAIRED64
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+    attributes:
+      - prefix
+    aliases:
+  -
+    mnemonic: CUSTOM
+    primary: 0xF
+    subop: 0
+    format: CUSTOM
+    operands:
+      - implementation_defined
+    semantics: Reserved implementation/profile extension
+    modes:
+      - SCALAR32
+    issue_slot: A
+    latency: 1
+    initiation_interval: 1
+    flags:
+    exceptions:
+      - illegal_instruction
+    attributes:
+      - reserved
+    aliases:

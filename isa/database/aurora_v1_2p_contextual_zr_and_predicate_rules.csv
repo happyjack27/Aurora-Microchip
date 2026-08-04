@@ -1,0 +1,9 @@
+format_class,field,code_0xF_meaning,notes
+ordinary_alu,source,ZR,only where PC source is prohibited
+ordinary_alu,destination,ZR/discard,flags and exceptions still occur
+packed_alu,source,ZR,broadcast zero to active lanes
+packed_alu,destination,ZR/discard,writes packed predicate state
+store,data,ZR,stores zero
+load,destination,illegal,not a discard/prefetch form
+register_pair,any,illegal,ZR cannot participate in pairs
+control_flow,register,R15/PC,never reinterpreted as ZR

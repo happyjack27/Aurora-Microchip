@@ -1,0 +1,24 @@
+/* Auto-generated from aurora_v1_2_isa.json */
+#ifndef AURORA_V1_2_OPCODES_H
+#define AURORA_V1_2_OPCODES_H
+
+typedef enum {
+    AURORA_OP_ALU_REG = 0x0,
+    AURORA_OP_ALU_IMM = 0x1,
+    AURORA_OP_SHIFT_ROTATE = 0x2,
+    AURORA_OP_MULDIV = 0x3,
+    AURORA_OP_DSP_REDUCE = 0x4,
+    AURORA_OP_PACK_SHUFFLE = 0x5,
+    AURORA_OP_LOAD = 0x6,
+    AURORA_OP_STORE = 0x7,
+    AURORA_OP_BRANCH_COND = 0x8,
+    AURORA_OP_CONTROL_FLOW = 0x9,
+    AURORA_OP_STACK = 0xA,
+    AURORA_OP_STREAM = 0xB,
+    AURORA_OP_LOOP_AGU = 0xC,
+    AURORA_OP_SYSTEM = 0xD,
+    AURORA_OP_EXTENSION = 0xE,
+    AURORA_OP_CUSTOM_RESERVED = 0xF,
+} aurora_primary_opcode_t;
+
+#endif

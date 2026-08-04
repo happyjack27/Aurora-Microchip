@@ -1,0 +1,2 @@
+mode,component_width,source_layout,affected_ops,real_result,imag_result,destination_layout,modifiers
+COMPLEX16,16,[imag:16|real:16],MUL|MAC|MAS|DOT_COMPLEX,signed exact 33-bit sign-extended to 64,signed exact 33-bit sign-extended to 64,real in Rd:Rd+1; imag in Rd+2:Rd+3; accum real A0 imag A1,CONJ_A|CONJ_B

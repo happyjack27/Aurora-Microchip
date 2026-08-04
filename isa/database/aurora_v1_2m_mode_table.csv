@@ -1,0 +1,3 @@
+mode,source_layout,complex_values_per_reg,exact_component_width,mul_result_layout,mac_behavior,modifiers
+COMPLEX8,[imag1:8|real1:8|imag0:8|real0:8],2,17,[imag1:16|real1:16|imag0:16|real0:16] in aligned 64-bit pair,"horizontal complex reduction into A0(real), A1(imag)",CONJ_A|CONJ_B
+COMPLEX16,[imag:16|real:16],1,33,"real32 in Rd, imag32 in Rd+1","exact complex accumulation into A0(real), A1(imag)",CONJ_A|CONJ_B

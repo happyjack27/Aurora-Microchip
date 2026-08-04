@@ -1,0 +1,2 @@
+primary,subop,bytecode_key,mnemonic,format,operands,semantics,aliases
+0x5,12,0x5C,CONJ,UNARY_RR,Rd Rs,Pass real lane(s); negate imaginary lane(s) according to PACKED8/PACKED16 width,
