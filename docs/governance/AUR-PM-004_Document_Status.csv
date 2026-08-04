@@ -1,0 +1,20 @@
+Document ID,Title,Status
+AUR-PM-001,Documentation Master Index,Frozen
+AUR-PM-002,ADR Register,Draft
+AUR-ARCH-001,Architecture Bible,Draft
+AUR-ARCH-003,ABI Specification,Frozen
+AUR-ARCH-004,ISA and Opcode Map,Frozen
+AUR-ARCH-005,Instruction Reference,Draft
+AUR-ARCH-006,Memory Map,Draft
+AUR-ARCH-007,Microarchitecture,Draft v1.2a
+AUR-TOOL-001,Compiler and Toolchain,Draft
+AUR-GUIDE-001,Programmer's Guide,Draft
+AUR-VER-001,Validation and Benchmark Suite,Draft
+AUR-RTL-001,RTL Architecture,Draft
+AUR-SIM-001,Cycle-Accurate Simulator,Draft
+AUR-VER-002,Verification Plan,Planned
+AUR-FPGA-001,FPGA Bring-up Guide,Planned
+AUR-ASIC-001,ASIC Planning Guide,Planned
+AUR-PROD-001,Product Family Guide,Planned
+AUR-MIG-001,Migration Guides,Planned
+AUR-SALES-001,Sales and Product Guide,Planned

@@ -1,13 +1,13 @@
-# Aurora Architecture Decision Log — Current Consolidated Preservation Copy
+**Current consolidated preservation copy • August 3, 2026**
 
-**Date:** August 3, 2026
+# Purpose and Authority
 
-This file makes the decision log explicit and repository-visible. It combines the original ADR register, all standalone ADR files found in the project artifacts, and late-session decisions that had not yet received formal ADR numbers.
+This preservation copy combines the original ADR register, standalone later ADRs, and late-session decisions that were not yet assigned permanent ADR numbers. Newer records supersede conflicting older wording.
 
-## Original ADR Register (ADR-0001 through ADR-0017)
+# Original ADR Register
 
-| ID | Decision | Status | Primary document | Notes |
-|---|---|---|---|---|
+| **ADR ID** | **Decision** | **Status** | **Primary document** | **Notes** |
+|----|----|----|----|----|
 | ADR-0001 | Mission: MCU + low/mid DSP consolidation | Frozen | AUR-ARCH-001 | Core product identity |
 | ADR-0002 | 16-bit base ISA | Frozen | AUR-ARCH-001 | Extension words for larger encodings |
 | ADR-0003 | 16 unified 32-bit GPRs | Frozen | AUR-ARCH-001 | Unified register file |
@@ -26,10 +26,10 @@ This file makes the decision log explicit and repository-visible. It combines th
 | ADR-0016 | Compiler-first scheduling | Frozen | AUR-TOOL-001 | Hardware repairs locally |
 | ADR-0017 | Machine-readable ISA as source of truth | Frozen | AUR-ARCH-004 | Generates tools/docs |
 
-## Standalone Later ADR Records
+# Standalone Later ADR Records
 
-| ID | Record title | Current status | File | Supersession / notes |
-|---|---|---|---|---|
+| **ID** | **Record title** | **Current status** | **Repository file** | **Supersession / notes** |
+|----|----|----|----|----|
 | ADR-2DSTREAM-001 | ADR-2DSTREAM-001 — Sticky MODE Instruction and Two-Dimensional Stream Stepping | Locked/Accepted | architecture-records/ADR_2DSTREAM_001_MODE_and_2D_Stream_Stepping.docx | Standalone record preserved in decision-logs/architecture-records. |
 | ADR-SYS-002 | ADR-SYS-002 — Privilege, Wait/Halt, and Context Transfer Architecture | LOCKED | architecture-records/ADR-SYS-002_Privilege_Wait_Halt_and_Context_Transfer.docx | Standalone record preserved in decision-logs/architecture-records. |
 | ADR-ISA-019 | ADR-ISA-019 — Extension Instructions and Stream/Stack Bounds Faults | LOCKED | architecture-records/ADR-ISA-019_Extension_and_Bounds_Faults.docx | Standalone record preserved in decision-logs/architecture-records. |
@@ -47,21 +47,17 @@ This file makes the decision log explicit and repository-visible. It combines th
 | ADR-STREAM-008 | ADR-STREAM-008 — Implicit Stream Access for Stream-Capable Computation | LOCKED — SUPERSEDES CONFLICTING PORTIONS OF ADR-STREAM-007 | architecture-records/ADR-STREAM-008_Implicit_Stream_Access_for_Computation.docx | Standalone record preserved in decision-logs/architecture-records. |
 | ADR-FE-006 | ADR-FE-006 — Two-Entry Prefetch Buffer and Eight-Word Hardware Loop | LOCKED | architecture-records/ADR-FE-006_Two_Entry_Prefetch_and_Eight_Word_Loop.docx | Standalone record preserved in decision-logs/architecture-records. |
 
-## Late-Session Decisions Pending Formal ADR Numbering
+# Late-Session Decisions Pending Formal ADR Numbering
 
-| Provisional ID | Decision | Status | Source | Notes |
-|---|---|---|---|---|
+| **Provisional ID** | **Decision** | **Status** | **Source** | **Notes** |
+|----|----|----|----|----|
 | LATE-STREAM-POPMETA | POPMETA aligned-pair stream consume with value + ORD/ADDR metadata | Locked | RECENT_DECISIONS_SNAPSHOT.md | Register-pair destination; atomic data+metadata; exact final encoding still to be reconciled with opcode table. |
 | LATE-DSP-TRACK | Fused TRACKMIN/TRACKMAX compare-and-track pair operation | Reserved / benchmark | RECENT_DECISIONS_SNAPSHOT.md | Not baseline; compare against POPMETA + CMP + two CMOVs. |
 | LATE-FE-REPLAY | Resident replay for short backward-relative branches in the eight-word front-end window | Locked | RECENT_DECISIONS_SNAPSHOT.md | Target derived from relative offset; no refetch on hit. |
 | LATE-FE-SINGLEENTRY | Compiler-enforced single-entry rule for resident-replay regions | Locked | RECENT_DECISIONS_SNAPSHOT.md | Hardware does not detect or enforce interior entry. |
 | LATE-FE-LOOPROLE | Explicit hardware loops retained alongside resident replay | Locked | RECENT_DECISIONS_SNAPSHOT.md | Hardware loop removes decrement/test/branch and final-exit misprediction. |
-| LATE-SCHED-001 | Priority-first EDF scheduler with optional latest-safe-start ordering | Design locked | scheduler/README.md | Higher priority first; within priority EDF or finish-deadline minus estimated remaining execution. |
-| LATE-SCHED-002 | Dependency urgency inheritance and mandatory latest-safe-start preemption | Design locked | scheduler/README.md | Inherit highest blocked priority, then earliest urgency at that priority. |
+| LATE-SCHED-001 | Priority-first EDF scheduler with optional latest-safe-start ordering | Design locked | code/programs/scheduler/README.md | Higher priority first; within priority EDF or finish-deadline minus estimated remaining execution. |
+| LATE-SCHED-002 | Dependency urgency inheritance and mandatory latest-safe-start preemption | Design locked | code/programs/scheduler/README.md | Inherit highest blocked priority, then earliest urgency at that priority. |
 | LATE-RED-COUNT | Comparison-count reduction | Not locked | RECENT_DECISIONS_SNAPSHOT.md | Explicitly retained only as a candidate. |
 
-## Governance Notes
-
-- `ADR-STREAM-008` supersedes the conflicting stream-exclusivity portion of `ADR-STREAM-007`; MOV/CMOV purity remains valid.
-- The original ADR register remains historically authoritative for ADR-0001–ADR-0017, but newer standalone records and the late-session section supersede conflicting older wording.
-- Provisional late-session IDs must be replaced with permanent ADR numbers during the next governance reconciliation; they are included now so no decisions are lost.
+Governance note: provisional entries are preserved as decisions but should receive permanent ADR identifiers in the next reconciliation pass.

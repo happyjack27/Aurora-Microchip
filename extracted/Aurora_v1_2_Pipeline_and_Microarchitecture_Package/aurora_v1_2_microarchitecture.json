@@ -1,0 +1,120 @@
+{
+  "architecture": "Aurora",
+  "version": "1.2",
+  "pipeline_stages": [
+    {
+      "id": 1,
+      "name": "IF",
+      "functions": [
+        "fetch",
+        "prefetch",
+        "extension assembly"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "ID_RR",
+      "functions": [
+        "decode",
+        "window select",
+        "hazard check",
+        "register read"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "EX_MEM",
+      "functions": [
+        "execute",
+        "address generation",
+        "branch resolve",
+        "memory launch"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "WB_RET",
+      "functions": [
+        "writeback",
+        "completion commit",
+        "in-order retirement"
+      ]
+    }
+  ],
+  "issue_window": {
+    "entries": 4,
+    "issue_width": 2,
+    "oldest_anchor": true,
+    "partner_search_depth": 3,
+    "rename": false,
+    "general_rob": false,
+    "retirement": "in_order"
+  },
+  "branch_prediction": {
+    "backward": "taken",
+    "forward": "not_taken",
+    "resolution_stage": "EX_MEM"
+  },
+  "timing_targets": [
+    {
+      "class": "Scalar ALU / compare / layout",
+      "latency": "1",
+      "ii": "1",
+      "comment": "Forwardable"
+    },
+    {
+      "class": "Branch",
+      "latency": "1 resolve",
+      "ii": "1",
+      "comment": "Refill penalty profile-dependent"
+    },
+    {
+      "class": "Load from TCM",
+      "latency": "2",
+      "ii": "1",
+      "comment": "Address plus return/writeback"
+    },
+    {
+      "class": "Store to TCM",
+      "latency": "1 launch",
+      "ii": "1",
+      "comment": "Retires in order"
+    },
+    {
+      "class": "Packed add/logic",
+      "latency": "1",
+      "ii": "1",
+      "comment": "Mode-controlled"
+    },
+    {
+      "class": "Multiply/MAC",
+      "latency": "3",
+      "ii": "1",
+      "comment": "Scoreboarded pipeline"
+    },
+    {
+      "class": "DOT/SAD",
+      "latency": "3",
+      "ii": "1",
+      "comment": "Shared reduction infrastructure"
+    },
+    {
+      "class": "REDUCE",
+      "latency": "2",
+      "ii": "1",
+      "comment": "Operator-specific fold supported"
+    },
+    {
+      "class": "Paired-64 shift",
+      "latency": "2+",
+      "ii": "1 or 2",
+      "comment": "Reuse 32-bit shifter"
+    },
+    {
+      "class": "Divide",
+      "latency": "Implementation target 8-32",
+      "ii": "Same as latency baseline",
+      "comment": "Radix-step implementation"
+    }
+  ]
+}

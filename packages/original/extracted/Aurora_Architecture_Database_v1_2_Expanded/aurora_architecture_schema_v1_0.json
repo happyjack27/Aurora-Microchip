@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Aurora Architecture Database",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "architecture",
+    "registers",
+    "modes",
+    "resources",
+    "pipeline",
+    "memory_regions"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "architecture": {
+      "type": "object"
+    },
+    "registers": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16
+    },
+    "modes": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8
+    },
+    "resources": {
+      "type": "array"
+    },
+    "pipeline": {
+      "type": "object"
+    },
+    "memory_regions": {
+      "type": "array"
+    },
+    "rtl_interfaces": {
+      "type": "array"
+    },
+    "requirements": {
+      "type": "array"
+    },
+    "profiles": {
+      "type": "object"
+    }
+  }
+}

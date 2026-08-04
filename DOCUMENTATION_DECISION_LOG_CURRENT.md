@@ -1,13 +1,13 @@
-# Aurora Documentation Decision Log — Current Consolidated Preservation Copy
+**Current consolidated preservation copy • August 3, 2026**
 
-**Date:** August 3, 2026
+# Purpose and Authority
 
-This file combines the original Documentation Decision Register with all later DDR addenda found in the preserved project artifacts.
+This preservation copy combines the original Documentation Decision Register and every later DDR artifact located in the project files. Missing identifiers are explicitly noted rather than reconstructed.
 
-## Original Documentation Decision Register
+# Original Documentation Decision Register
 
-| DDR ID | Decision | Status | Rationale |
-|---|---|---|---|
+| **DDR ID** | **Decision** | **Status** | **Rationale** |
+|----|----|----|----|
 | DDR-0001 | Adopt stable document IDs | Frozen | Enables cross-reference and lifecycle tracking. |
 | DDR-0002 | Architecture Bible is canonical rationale source | Frozen | Avoids duplicated rationale. |
 | DDR-0003 | Machine-readable ISA is canonical encoding source | Frozen | Prevents assembler/RTL/doc drift. |
@@ -17,10 +17,10 @@ This file combines the original Documentation Decision Register with all later D
 | DDR-0007 | Maintain requirements traceability database | Frozen | Links needs to ADRs, specs and tests. |
 | DDR-0008 | Maintain topic index | Accepted | Supports cross-document navigation by subject. |
 
-## Later Documentation Decision Records
+# Later Documentation Decision Records
 
-| DDR ID | Record title | Current status | File | Supersession / notes |
-|---|---|---|---|---|
+| **DDR ID** | **Record title** | **Current status** | **Repository file** | **Supersession / notes** |
+|----|----|----|----|----|
 | DDR-0046 | Aurora Documentation Decision Register — Addendum | Locked/Accepted | documentation-records/AUR-PM-008_DDR_Addendum_0046_Instruction_Bytecodes.docx | Standalone documentation decision preserved. |
 | DDR-0047 | DDR-0047 — Document MODE and Two-Dimensional Stream Configuration | Locked/Accepted | documentation-records/DDR-0047_MODE_and_2D_Stream_Documentation.docx | Standalone documentation decision preserved. |
 | DDR-0048 | DDR-0048 — Document Privilege, Wait/Halt, and Context Transfer Instructions | LOCKED | documentation-records/DDR-0048_Privilege_Wait_Halt_and_Context_Documentation.docx | Standalone documentation decision preserved. |
@@ -39,8 +39,4 @@ This file combines the original Documentation Decision Register with all later D
 | DDR-0061 | DDR-0061 — Corrected Stream-Access Documentation Rule | LOCKED | documentation-records/DDR-0061_Corrected_Stream_Access_Documentation_Rule.docx | Standalone documentation decision preserved. |
 | DDR-0062 | DDR-0062 — Prefetch and Hardware-Loop Window Documentation | LOCKED | documentation-records/DDR-0062_Prefetch_and_Hardware_Loop_Window_Documentation.docx | Standalone documentation decision preserved. |
 
-## Missing-number note
-
-- The available source artifacts contain DDR-0001 through DDR-0008 and DDR-0046 through DDR-0062.
-- DDR-0009 through DDR-0045 were not present in the available files and are not fabricated here.
-- DDR-0061 supersedes the conflicting portion of DDR-0060.
+Missing-number note: DDR-0009 through DDR-0045 were not found in the available artifacts and are not invented in this consolidation.

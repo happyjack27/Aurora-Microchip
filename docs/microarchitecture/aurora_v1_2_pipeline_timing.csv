@@ -1,0 +1,11 @@
+class,latency_target,initiation_interval,comment
+Scalar ALU / compare / layout,1,1,Forwardable
+Branch,1 resolve,1,Refill penalty profile-dependent
+Load from TCM,2,1,Address plus return/writeback
+Store to TCM,1 launch,1,Retires in order
+Packed add/logic,1,1,Mode-controlled
+Multiply/MAC,3,1,Scoreboarded pipeline
+DOT/SAD,3,1,Shared reduction infrastructure
+REDUCE,2,1,Operator-specific fold supported
+Paired-64 shift,2+,1 or 2,Reuse 32-bit shifter
+Divide,Implementation target 8-32,Same as latency baseline,Radix-step implementation

@@ -1,0 +1,702 @@
+{
+  "schema_version": "1.0",
+  "architecture": {
+    "name": "Aurora",
+    "version": "1.2",
+    "endianness": "little",
+    "address_bits": 32,
+    "instruction_word_bits": 16,
+    "native_register_bits": 32,
+    "issue_width": 2,
+    "pipeline_stages": [
+      "IF",
+      "ID_RR",
+      "EX_MEM",
+      "WB_RET"
+    ],
+    "retirement": "in_order",
+    "register_renaming": false,
+    "general_reorder_buffer": false
+  },
+  "registers": [
+    {
+      "id": 0,
+      "name": "R0",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 1,
+      "name": "R1",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 2,
+      "name": "R2",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 3,
+      "name": "R3",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 4,
+      "name": "R4",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 5,
+      "name": "R5",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 6,
+      "name": "R6",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 7,
+      "name": "R7",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 8,
+      "name": "R8",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 9,
+      "name": "R9",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 10,
+      "name": "R10",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 11,
+      "name": "R11",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 12,
+      "name": "R12",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 13,
+      "name": "R13",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 14,
+      "name": "R14",
+      "width": 32,
+      "role": "gpr"
+    },
+    {
+      "id": 15,
+      "name": "R15",
+      "width": 32,
+      "role": "gpr"
+    }
+  ],
+  "special_roles": {
+    "R0": [
+      "arg0",
+      "return0",
+      "stream_q0_low"
+    ],
+    "R1": [
+      "arg1",
+      "stream_q0_high"
+    ],
+    "R4": [
+      "stream_q1_low"
+    ],
+    "R5": [
+      "stream_q1_high"
+    ],
+    "R8": [
+      "accumulator_a0_low"
+    ],
+    "R10": [
+      "accumulator_a1_low",
+      "callee_saved"
+    ],
+    "R12": [
+      "callee_saved",
+      "optional_frame_pointer"
+    ],
+    "R13": [
+      "link_register",
+      "conditional_gpr"
+    ],
+    "R14": [
+      "stack_pointer"
+    ],
+    "R15": [
+      "program_counter"
+    ]
+  },
+  "paired64": {
+    "pairs": [
+      [
+        0,
+        1
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        12,
+        13
+      ]
+    ],
+    "conditional_pairs": {
+      "12:13": "legal only when LR value is dead or saved"
+    },
+    "zero_extended_sources": [
+      14,
+      15
+    ],
+    "forbidden_destinations": [
+      14,
+      15
+    ]
+  },
+  "modes": [
+    {
+      "code": 0,
+      "name": "SCALAR32",
+      "lane_bits": 32,
+      "lanes": 1
+    },
+    {
+      "code": 1,
+      "name": "PACKED16",
+      "lane_bits": 16,
+      "lanes": 2
+    },
+    {
+      "code": 2,
+      "name": "PACKED8",
+      "lane_bits": 8,
+      "lanes": 4
+    },
+    {
+      "code": 3,
+      "name": "LOW16",
+      "lane_bits": 16,
+      "lanes": 1,
+      "preserve_upper": true
+    },
+    {
+      "code": 4,
+      "name": "LOW8",
+      "lane_bits": 8,
+      "lanes": 1,
+      "preserve_upper": true
+    },
+    {
+      "code": 5,
+      "name": "PAIRED64",
+      "lane_bits": 64,
+      "lanes": 1,
+      "paired": true
+    },
+    {
+      "code": 6,
+      "name": "RESERVED6",
+      "reserved": true
+    },
+    {
+      "code": 7,
+      "name": "RESERVED7",
+      "reserved": true
+    }
+  ],
+  "resources": [
+    {
+      "id": 0,
+      "name": "LANE0_ALU",
+      "capacity": 1
+    },
+    {
+      "id": 1,
+      "name": "LANE1_ALU",
+      "capacity": 1
+    },
+    {
+      "id": 2,
+      "name": "SHARED_LSU",
+      "capacity": 1
+    },
+    {
+      "id": 3,
+      "name": "SHARED_MUL_REDUCE",
+      "capacity": 1
+    },
+    {
+      "id": 4,
+      "name": "STREAM_Q0",
+      "capacity": 1
+    },
+    {
+      "id": 5,
+      "name": "STREAM_Q1",
+      "capacity": 1
+    },
+    {
+      "id": 6,
+      "name": "BRANCH",
+      "capacity": 1
+    },
+    {
+      "id": 7,
+      "name": "FLAGS",
+      "capacity": 1
+    },
+    {
+      "id": 8,
+      "name": "ACC_A0",
+      "capacity": 1
+    },
+    {
+      "id": 9,
+      "name": "ACC_A1",
+      "capacity": 1
+    },
+    {
+      "id": 10,
+      "name": "DIVSTEP_ASSIST",
+      "capacity": 1
+    },
+    {
+      "id": 11,
+      "name": "MMIO_SERIAL",
+      "capacity": 1
+    }
+  ],
+  "pipeline": {
+    "fetch_words_per_cycle": 2,
+    "decoded_window_entries": 4,
+    "partner_search_depth": 3,
+    "oldest_anchor": true,
+    "branch_prediction": {
+      "backward_conditional": "taken",
+      "forward_conditional": "not_taken",
+      "unconditional_direct": "taken_when_target_known"
+    }
+  },
+  "streams": {
+    "count": 2,
+    "names": [
+      "Q0",
+      "Q1"
+    ],
+    "backing_registers": {
+      "Q0": [
+        0,
+        1
+      ],
+      "Q1": [
+        4,
+        5
+      ]
+    },
+    "element_widths": [
+      8,
+      16,
+      32
+    ],
+    "staging_bits_per_stream": 128,
+    "coupled_lifo_bits": 256,
+    "supports": [
+      "peek",
+      "consume",
+      "push",
+      "pop",
+      "dup",
+      "replace",
+      "circular",
+      "signed_stride"
+    ]
+  },
+  "accumulators": [
+    {
+      "name": "A0",
+      "width": 40,
+      "visible_low_register": 8
+    },
+    {
+      "name": "A1",
+      "width": 40,
+      "visible_low_register": 10
+    }
+  ],
+  "timers": {
+    "free_running_counter_bits": 32,
+    "countdown_timer_bits": 32,
+    "countdown_channels": 1,
+    "tick_granularity": "implementation-defined power-of-two CPU cycles",
+    "cycle_exact_required": false
+  },
+  "interrupts": {
+    "priority_levels": 16,
+    "lower_number_higher_priority": true,
+    "hardware_policy": "fixed_priority",
+    "task_scheduling_policy": "software"
+  },
+  "memory_regions": [
+    {
+      "name": "BOOT_ASC_ROM",
+      "start": "0x00000000",
+      "end": "0x0000FFFF",
+      "required": true
+    },
+    {
+      "name": "ITCM",
+      "start": "0x00010000",
+      "end": "0x0001FFFF",
+      "required": false
+    },
+    {
+      "name": "DTCM",
+      "start": "0x00020000",
+      "end": "0x0002FFFF",
+      "required": false
+    },
+    {
+      "name": "VECTOR_RAM",
+      "start": "0x00030000",
+      "end": "0x0003FFFF",
+      "required": false
+    },
+    {
+      "name": "ONCHIP_SRAM",
+      "start": "0x00100000",
+      "end": "0x0FFFFFFF",
+      "required": true
+    },
+    {
+      "name": "MMIO",
+      "start": "0x10000000",
+      "end": "0x1FFFFFFF",
+      "required": true
+    },
+    {
+      "name": "EXT_SRAM",
+      "start": "0x20000000",
+      "end": "0x2FFFFFFF",
+      "required": false
+    },
+    {
+      "name": "EXT_FLASH",
+      "start": "0x30000000",
+      "end": "0x3FFFFFFF",
+      "required": false
+    },
+    {
+      "name": "EXT_DRAM",
+      "start": "0x40000000",
+      "end": "0x7FFFFFFF",
+      "required": false
+    },
+    {
+      "name": "SYSTEM_DEBUG",
+      "start": "0xF0000000",
+      "end": "0xFFFFFFFF",
+      "required": true
+    }
+  ],
+  "exceptions": [
+    {
+      "code": 0,
+      "name": "ILLEGAL_INSTRUCTION"
+    },
+    {
+      "code": 1,
+      "name": "ALIGNMENT_FAULT"
+    },
+    {
+      "code": 2,
+      "name": "ACCESS_FAULT"
+    },
+    {
+      "code": 3,
+      "name": "PRIVILEGE_FAULT"
+    },
+    {
+      "code": 4,
+      "name": "DIVIDE_BY_ZERO"
+    },
+    {
+      "code": 5,
+      "name": "SIGNED_DIV_OVERFLOW"
+    },
+    {
+      "code": 6,
+      "name": "BREAKPOINT"
+    },
+    {
+      "code": 7,
+      "name": "EXTERNAL_BUS_FAULT"
+    }
+  ],
+  "rtl_interfaces": [
+    {
+      "name": "fetch_bundle_t",
+      "producer": "front_end",
+      "consumer": "issue_window",
+      "handshake": "ready_valid",
+      "fields": [
+        {
+          "name": "valid",
+          "width": 2
+        },
+        {
+          "name": "word0",
+          "width": 16
+        },
+        {
+          "name": "word1",
+          "width": 16
+        },
+        {
+          "name": "pc0",
+          "width": 32
+        },
+        {
+          "name": "pc1",
+          "width": 32
+        },
+        {
+          "name": "fault",
+          "width": 1
+        }
+      ]
+    },
+    {
+      "name": "issue_bundle_t",
+      "producer": "issue_window",
+      "consumer": "execution_lanes",
+      "handshake": "ready_valid",
+      "fields": [
+        {
+          "name": "valid",
+          "width": 1
+        },
+        {
+          "name": "pc",
+          "width": 32
+        },
+        {
+          "name": "opcode",
+          "width": 8
+        },
+        {
+          "name": "mode",
+          "width": 3
+        },
+        {
+          "name": "src_a",
+          "width": 32
+        },
+        {
+          "name": "src_b",
+          "width": 32
+        },
+        {
+          "name": "old_dst",
+          "width": 32
+        },
+        {
+          "name": "resource_mask",
+          "width": 16
+        },
+        {
+          "name": "age",
+          "width": 3
+        }
+      ]
+    },
+    {
+      "name": "completion_record_t",
+      "producer": "execution_units",
+      "consumer": "commit",
+      "handshake": "valid",
+      "fields": [
+        {
+          "name": "valid",
+          "width": 1
+        },
+        {
+          "name": "age",
+          "width": 3
+        },
+        {
+          "name": "pc",
+          "width": 32
+        },
+        {
+          "name": "dst_mask",
+          "width": 32
+        },
+        {
+          "name": "result_lo",
+          "width": 32
+        },
+        {
+          "name": "result_hi",
+          "width": 32
+        },
+        {
+          "name": "fault_code",
+          "width": 4
+        },
+        {
+          "name": "store_commit",
+          "width": 1
+        },
+        {
+          "name": "complete",
+          "width": 1
+        }
+      ]
+    },
+    {
+      "name": "memory_request_t",
+      "producer": "lsu_stream_dma",
+      "consumer": "memory_fabric",
+      "handshake": "ready_valid",
+      "fields": [
+        {
+          "name": "valid",
+          "width": 1
+        },
+        {
+          "name": "master_id",
+          "width": 4
+        },
+        {
+          "name": "address",
+          "width": 32
+        },
+        {
+          "name": "write",
+          "width": 1
+        },
+        {
+          "name": "size",
+          "width": 3
+        },
+        {
+          "name": "wdata",
+          "width": 64
+        },
+        {
+          "name": "wstrb",
+          "width": 8
+        },
+        {
+          "name": "device",
+          "width": 1
+        },
+        {
+          "name": "age",
+          "width": 3
+        }
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "id": "REQ-0001",
+      "text": "Architectural retirement shall be in order.",
+      "verified_by": [
+        "commit_order_property"
+      ]
+    },
+    {
+      "id": "REQ-0002",
+      "text": "Either issue lane may execute ordinary ALU-class instructions.",
+      "verified_by": [
+        "lane_symmetry_test"
+      ]
+    },
+    {
+      "id": "REQ-0003",
+      "text": "DIV shall not require a dedicated full divider.",
+      "verified_by": [
+        "divstep_only_decode_property"
+      ]
+    },
+    {
+      "id": "REQ-0004",
+      "text": "Stream consumption shall remain ordered per stream.",
+      "verified_by": [
+        "stream_order_property"
+      ]
+    },
+    {
+      "id": "REQ-0005",
+      "text": "MMIO transactions shall remain strongly ordered.",
+      "verified_by": [
+        "mmio_order_property"
+      ]
+    }
+  ],
+  "profiles": {
+    "Aurora-L": {
+      "itcm_kib": 0,
+      "dtcm_kib": 0,
+      "dma_channels": 0,
+      "external_dram": false
+    },
+    "Aurora-M": {
+      "itcm_kib": 64,
+      "dtcm_kib": 64,
+      "dma_channels": 4,
+      "external_dram": false
+    },
+    "Aurora-P": {
+      "itcm_kib": 128,
+      "dtcm_kib": 128,
+      "dma_channels": 8,
+      "external_dram": true
+    }
+  }
+}

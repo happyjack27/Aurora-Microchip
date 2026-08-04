@@ -1,0 +1,12 @@
+{
+  "aurora_arch_v1_2.h": "ea4ab72ab0ef94d1239034064490eed3567e075669a88057ea6be9b488911ca9",
+  "aurora_arch_pkg.sv": "1d6a8d8954f3587983f80eaf5a38157c60f3e10f20edda730a2b973e38e37d7e",
+  "validate_architecture_database.py": "a05d2ac35fe347d8fc6fa6c9e50b2f51c1208d8c0bfadd168c4430cf09a1f010",
+  "AUR-ARCH-010_Machine_Readable_Architecture_Database_Expanded.docx": "c09426600df72604be039dbca8b99d53c8d0d2a14d6bbdcd90194f8b5308d840",
+  "aurora_resources.csv": "a7fb113fc156ee8abb67f75b29169b856d26e254f84fc83f73d7b7962a2a042e",
+  "aurora_architecture_schema_v1_0.json": "79dca8d718b59197389f3843a92672af7db05df6c29cdc7c2a8fbbd303c7ad83",
+  "aurora_arch_constants.py": "70da638addcfe9c10820be614889558eb0c54a072ebde0101b278b9550a2b07e",
+  "aurora_requirements.csv": "4ffc56b58759f5ebec8ec8f8cb9b79229b04e7f3f000b5f0adb54b05a843a834",
+  "aurora_memory_regions.csv": "9c50bdeb79936c18f07aae3b87bf08436fecd6d63134f511dcba66c2111dee51",
+  "aurora_architecture_v1_2.json": "09afb772ff546d2374d6dc5b11a83752efbd563d69ce7120f9066d57bd42dde9"
+}

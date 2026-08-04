@@ -1,0 +1,6 @@
+id,text,verified_by
+REQ-0001,Architectural retirement shall be in order.,commit_order_property
+REQ-0002,Either issue lane may execute ordinary ALU-class instructions.,lane_symmetry_test
+REQ-0003,DIV shall not require a dedicated full divider.,divstep_only_decode_property
+REQ-0004,Stream consumption shall remain ordered per stream.,stream_order_property
+REQ-0005,MMIO transactions shall remain strongly ordered.,mmio_order_property
