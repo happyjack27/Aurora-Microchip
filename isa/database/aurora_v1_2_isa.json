@@ -176,6 +176,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "Rd = Ra + Rb",
       "modes": [
         "SCALAR32",
@@ -210,6 +212,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "Rd = Ra - Rb",
       "modes": [
         "SCALAR32",
@@ -244,6 +248,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "Rd = Ra & Rb",
       "modes": [
         "SCALAR32",
@@ -276,6 +282,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "Rd = Ra | Rb",
       "modes": [
         "SCALAR32",
@@ -308,6 +316,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "Rd = Ra ^ Rb",
       "modes": [
         "SCALAR32",
@@ -340,6 +350,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "flags = Ra - Rb",
       "modes": [
         "SCALAR32",
@@ -374,6 +386,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "Rd = min(Ra,Rb)",
       "modes": [
         "SCALAR32",
@@ -406,6 +420,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "Rd = max(Ra,Rb)",
       "modes": [
         "SCALAR32",
@@ -437,6 +453,8 @@
         "Rd/Ra",
         "imm"
       ],
+      "operand_count": 2,
+      "immediate_bits": 4,
       "semantics": "ADD with immediate",
       "modes": [
         "SCALAR32",
@@ -468,6 +486,8 @@
         "Rd/Ra",
         "imm"
       ],
+      "operand_count": 2,
+      "immediate_bits": 4,
       "semantics": "SUB with immediate",
       "modes": [
         "SCALAR32",
@@ -499,6 +519,8 @@
         "Rd/Ra",
         "imm"
       ],
+      "operand_count": 2,
+      "immediate_bits": 4,
       "semantics": "AND with immediate",
       "modes": [
         "SCALAR32",
@@ -528,6 +550,8 @@
         "Rd/Ra",
         "imm"
       ],
+      "operand_count": 2,
+      "immediate_bits": 4,
       "semantics": "OR with immediate",
       "modes": [
         "SCALAR32",
@@ -557,6 +581,8 @@
         "Rd/Ra",
         "imm"
       ],
+      "operand_count": 2,
+      "immediate_bits": 4,
       "semantics": "XOR with immediate",
       "modes": [
         "SCALAR32",
@@ -586,6 +612,8 @@
         "Rd/Ra",
         "imm"
       ],
+      "operand_count": 2,
+      "immediate_bits": 4,
       "semantics": "CMP with immediate",
       "modes": [
         "SCALAR32",
@@ -617,6 +645,8 @@
         "Rd/Ra",
         "count"
       ],
+      "operand_count": 2,
+      "immediate_bits": 4,
       "semantics": "LSL by immediate or register count",
       "modes": [
         "SCALAR32",
@@ -650,6 +680,8 @@
         "Rd/Ra",
         "count"
       ],
+      "operand_count": 2,
+      "immediate_bits": 4,
       "semantics": "LSR by immediate or register count",
       "modes": [
         "SCALAR32",
@@ -683,6 +715,8 @@
         "Rd/Ra",
         "count"
       ],
+      "operand_count": 2,
+      "immediate_bits": 4,
       "semantics": "ASR by immediate or register count",
       "modes": [
         "SCALAR32",
@@ -716,6 +750,8 @@
         "Rd/Ra",
         "count"
       ],
+      "operand_count": 2,
+      "immediate_bits": 4,
       "semantics": "ROL by immediate or register count",
       "modes": [
         "SCALAR32",
@@ -749,6 +785,8 @@
         "Rd/Ra",
         "count"
       ],
+      "operand_count": 2,
+      "immediate_bits": 4,
       "semantics": "ROR by immediate or register count",
       "modes": [
         "SCALAR32",
@@ -783,6 +821,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "full-width product",
       "modes": [
         "SCALAR32",
@@ -814,6 +854,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "high half of product",
       "modes": [
         "SCALAR32",
@@ -845,6 +887,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "A = A + Ra*Rb",
       "modes": [
         "SCALAR32",
@@ -876,6 +920,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "A = A - Ra*Rb",
       "modes": [
         "SCALAR32",
@@ -907,6 +953,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "one radix divide step",
       "modes": [
         "SCALAR32",
@@ -935,6 +983,8 @@
         "Ra",
         "Rb"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "multi-cycle integer divide",
       "modes": [
         "SCALAR32",
@@ -967,6 +1017,8 @@
         "overwrite/fold",
         "consume/local"
       ],
+      "operand_count": 4,
+      "immediate_bits": 0,
       "semantics": "Reduce active lanes with ADD; fold form combines with accumulator using operator-specific rule",
       "modes": [
         "PACKED16",
@@ -996,6 +1048,8 @@
         "overwrite/fold",
         "consume/local"
       ],
+      "operand_count": 4,
+      "immediate_bits": 0,
       "semantics": "Reduce active lanes with AND; fold form combines with accumulator using operator-specific rule",
       "modes": [
         "PACKED16",
@@ -1025,6 +1079,8 @@
         "overwrite/fold",
         "consume/local"
       ],
+      "operand_count": 4,
+      "immediate_bits": 0,
       "semantics": "Reduce active lanes with OR; fold form combines with accumulator using operator-specific rule",
       "modes": [
         "PACKED16",
@@ -1054,6 +1110,8 @@
         "overwrite/fold",
         "consume/local"
       ],
+      "operand_count": 4,
+      "immediate_bits": 0,
       "semantics": "Reduce active lanes with XOR; fold form combines with accumulator using operator-specific rule",
       "modes": [
         "PACKED16",
@@ -1083,6 +1141,8 @@
         "overwrite/fold",
         "consume/local"
       ],
+      "operand_count": 4,
+      "immediate_bits": 0,
       "semantics": "Reduce active lanes with MIN; fold form combines with accumulator using operator-specific rule",
       "modes": [
         "PACKED16",
@@ -1112,6 +1172,8 @@
         "overwrite/fold",
         "consume/local"
       ],
+      "operand_count": 4,
+      "immediate_bits": 0,
       "semantics": "Reduce active lanes with MAX; fold form combines with accumulator using operator-specific rule",
       "modes": [
         "PACKED16",
@@ -1141,6 +1203,8 @@
         "overwrite/fold",
         "consume/local"
       ],
+      "operand_count": 4,
+      "immediate_bits": 0,
       "semantics": "Reduce active lanes with ABSMAX; fold form combines with accumulator using operator-specific rule",
       "modes": [
         "PACKED16",
@@ -1170,6 +1234,8 @@
         "overwrite/fold",
         "consume/local"
       ],
+      "operand_count": 4,
+      "immediate_bits": 0,
       "semantics": "Reduce active lanes with COUNT; fold form combines with accumulator using operator-specific rule",
       "modes": [
         "PACKED16",
@@ -1200,6 +1266,8 @@
         "overwrite/fold",
         "consume/local"
       ],
+      "operand_count": 5,
+      "immediate_bits": 0,
       "semantics": "Sum lane products into selected accumulator",
       "modes": [
         "PACKED16",
@@ -1230,6 +1298,8 @@
         "overwrite/fold",
         "consume/local"
       ],
+      "operand_count": 5,
+      "immediate_bits": 0,
       "semantics": "Sum absolute lane differences into selected accumulator",
       "modes": [
         "PACKED16",
@@ -1258,6 +1328,8 @@
         "Rs/Ra",
         "Rb?"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "PACK register layout operation",
       "modes": [
         "SCALAR32",
@@ -1289,6 +1361,8 @@
         "Rs/Ra",
         "Rb?"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "UNPACK register layout operation",
       "modes": [
         "SCALAR32",
@@ -1320,6 +1394,8 @@
         "Rs/Ra",
         "Rb?"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "ZIP register layout operation",
       "modes": [
         "SCALAR32",
@@ -1351,6 +1427,8 @@
         "Rs/Ra",
         "Rb?"
       ],
+      "operand_count": 3,
+      "immediate_bits": 0,
       "semantics": "UNZIP register layout operation",
       "modes": [
         "SCALAR32",
@@ -1382,6 +1460,8 @@
         "Rs/Ra",
         "Rb?"
       ],
+      "operand_count": 2,
+      "immediate_bits": 0,
       "semantics": "BSWAP register layout operation",
       "modes": [
         "SCALAR32",
@@ -1413,6 +1493,8 @@
         "Rs/Ra",
         "Rb?"
       ],
+      "operand_count": 2,
+      "immediate_bits": 0,
       "semantics": "WSWAP register layout operation",
       "modes": [
         "SCALAR32",
@@ -1444,6 +1526,8 @@
         "Rs/Ra",
         "Rb?"
       ],
+      "operand_count": 3,
+      "immediate_bits": 4,
       "semantics": "SHUFFLE register layout operation",
       "modes": [
         "SCALAR32",
@@ -1475,6 +1559,8 @@
         "Rs/Ra",
         "Rb?"
       ],
+      "operand_count": 2,
+      "immediate_bits": 0,
       "semantics": "MOV register layout operation",
       "modes": [
         "SCALAR32",
@@ -1497,6 +1583,118 @@
       "aliases": []
     },
     {
+      "mnemonic": "ZEXT8",
+      "primary": "0x5",
+      "subop": 8,
+      "format": "RR_OR_UNARY",
+      "operands": [
+        "Rd",
+        "Rs"
+      ],
+      "operand_count": 2,
+      "immediate_bits": 0,
+      "semantics": "Rd = zero_extend(Rs[7:0])",
+      "modes": [
+        "SCALAR32"
+      ],
+      "issue_slot": "A",
+      "latency": 1,
+      "initiation_interval": 1,
+      "flags": [
+        "Z",
+        "N"
+      ],
+      "exceptions": [],
+      "attributes": [
+        "register_only"
+      ],
+      "aliases": []
+    },
+    {
+      "mnemonic": "SEXT8",
+      "primary": "0x5",
+      "subop": 9,
+      "format": "RR_OR_UNARY",
+      "operands": [
+        "Rd",
+        "Rs"
+      ],
+      "operand_count": 2,
+      "immediate_bits": 0,
+      "semantics": "Rd = sign_extend(Rs[7:0])",
+      "modes": [
+        "SCALAR32"
+      ],
+      "issue_slot": "A",
+      "latency": 1,
+      "initiation_interval": 1,
+      "flags": [
+        "Z",
+        "N"
+      ],
+      "exceptions": [],
+      "attributes": [
+        "register_only"
+      ],
+      "aliases": []
+    },
+    {
+      "mnemonic": "ZEXT16",
+      "primary": "0x5",
+      "subop": 10,
+      "format": "RR_OR_UNARY",
+      "operands": [
+        "Rd",
+        "Rs"
+      ],
+      "operand_count": 2,
+      "immediate_bits": 0,
+      "semantics": "Rd = zero_extend(Rs[15:0])",
+      "modes": [
+        "SCALAR32"
+      ],
+      "issue_slot": "A",
+      "latency": 1,
+      "initiation_interval": 1,
+      "flags": [
+        "Z",
+        "N"
+      ],
+      "exceptions": [],
+      "attributes": [
+        "register_only"
+      ],
+      "aliases": []
+    },
+    {
+      "mnemonic": "SEXT16",
+      "primary": "0x5",
+      "subop": 11,
+      "format": "RR_OR_UNARY",
+      "operands": [
+        "Rd",
+        "Rs"
+      ],
+      "operand_count": 2,
+      "immediate_bits": 0,
+      "semantics": "Rd = sign_extend(Rs[15:0])",
+      "modes": [
+        "SCALAR32"
+      ],
+      "issue_slot": "A",
+      "latency": 1,
+      "initiation_interval": 1,
+      "flags": [
+        "Z",
+        "N"
+      ],
+      "exceptions": [],
+      "attributes": [
+        "register_only"
+      ],
+      "aliases": []
+    },
+    {
       "mnemonic": "LD",
       "primary": "0x6",
       "subop": 0,
@@ -1505,6 +1703,8 @@
         "Rd",
         "[base+offset]"
       ],
+      "operand_count": 2,
+      "immediate_bits": 0,
       "semantics": "Load scalar or pair according to mode",
       "modes": [
         "SCALAR32",
@@ -1535,6 +1735,8 @@
         "Rs",
         "[base+offset]"
       ],
+      "operand_count": 2,
+      "immediate_bits": 0,
       "semantics": "Store scalar or pair according to mode",
       "modes": [
         "SCALAR32",
@@ -1564,6 +1766,8 @@
       "operands": [
         "target"
       ],
+      "operand_count": 1,
+      "immediate_bits": 8,
       "semantics": "Conditional branch EQ",
       "modes": [
         "SCALAR32"
@@ -1588,6 +1792,8 @@
       "operands": [
         "target"
       ],
+      "operand_count": 1,
+      "immediate_bits": 8,
       "semantics": "Conditional branch NE",
       "modes": [
         "SCALAR32"
@@ -1612,6 +1818,8 @@
       "operands": [
         "target"
       ],
+      "operand_count": 1,
+      "immediate_bits": 8,
       "semantics": "Conditional branch LT",
       "modes": [
         "SCALAR32"
@@ -1636,6 +1844,8 @@
       "operands": [
         "target"
       ],
+      "operand_count": 1,
+      "immediate_bits": 8,
       "semantics": "Conditional branch GE",
       "modes": [
         "SCALAR32"
@@ -1660,6 +1870,8 @@
       "operands": [
         "target"
       ],
+      "operand_count": 1,
+      "immediate_bits": 8,
       "semantics": "Conditional branch LTU",
       "modes": [
         "SCALAR32"
@@ -1684,6 +1896,8 @@
       "operands": [
         "target"
       ],
+      "operand_count": 1,
+      "immediate_bits": 8,
       "semantics": "Conditional branch GEU",
       "modes": [
         "SCALAR32"
@@ -1708,6 +1922,8 @@
       "operands": [
         "target"
       ],
+      "operand_count": 1,
+      "immediate_bits": 8,
       "semantics": "Conditional branch MI",
       "modes": [
         "SCALAR32"
@@ -1732,6 +1948,8 @@
       "operands": [
         "target"
       ],
+      "operand_count": 1,
+      "immediate_bits": 8,
       "semantics": "Conditional branch PL",
       "modes": [
         "SCALAR32"
@@ -1756,6 +1974,8 @@
       "operands": [
         "target/reg"
       ],
+      "operand_count": 1,
+      "immediate_bits": 8,
       "semantics": "R13 = return address; PC = target",
       "modes": [
         "SCALAR32"
@@ -1778,6 +1998,8 @@
       "operands": [
         "target/reg"
       ],
+      "operand_count": 1,
+      "immediate_bits": 8,
       "semantics": "PC = target",
       "modes": [
         "SCALAR32"
@@ -1797,9 +2019,9 @@
       "primary": "0x9",
       "subop": 2,
       "format": "CTRL",
-      "operands": [
-        "target/reg"
-      ],
+      "operands": [],
+      "operand_count": 0,
+      "immediate_bits": 0,
       "semantics": "PC = R13",
       "modes": [
         "SCALAR32"
@@ -1822,6 +2044,8 @@
       "operands": [
         "target/reg"
       ],
+      "operand_count": 1,
+      "immediate_bits": 0,
       "semantics": "PC = register",
       "modes": [
         "SCALAR32"
@@ -1844,6 +2068,8 @@
       "operands": [
         "reg/mask"
       ],
+      "operand_count": 1,
+      "immediate_bits": 0,
       "semantics": "PUSH using R14 stack pointer",
       "modes": [
         "SCALAR32",
@@ -1871,6 +2097,8 @@
       "operands": [
         "reg/mask"
       ],
+      "operand_count": 1,
+      "immediate_bits": 0,
       "semantics": "POP using R14 stack pointer",
       "modes": [
         "SCALAR32",
@@ -1898,6 +2126,8 @@
       "operands": [
         "reg/mask"
       ],
+      "operand_count": 1,
+      "immediate_bits": 0,
       "semantics": "PUSHM using R14 stack pointer",
       "modes": [
         "SCALAR32",
@@ -1925,6 +2155,8 @@
       "operands": [
         "reg/mask"
       ],
+      "operand_count": 1,
+      "immediate_bits": 0,
       "semantics": "POPM using R14 stack pointer",
       "modes": [
         "SCALAR32",
@@ -1953,6 +2185,8 @@
         "Q0/Q1",
         "args"
       ],
+      "operand_count": 2,
+      "immediate_bits": 6,
       "semantics": "QMASK stream/queue operation",
       "modes": [
         "SCALAR32",
@@ -1980,6 +2214,8 @@
         "Q0/Q1",
         "args"
       ],
+      "operand_count": 2,
+      "immediate_bits": 6,
       "semantics": "QPEEK stream/queue operation",
       "modes": [
         "SCALAR32",
@@ -2007,6 +2243,8 @@
         "Q0/Q1",
         "args"
       ],
+      "operand_count": 2,
+      "immediate_bits": 6,
       "semantics": "QPUSH stream/queue operation",
       "modes": [
         "SCALAR32",
@@ -2034,6 +2272,8 @@
         "Q0/Q1",
         "args"
       ],
+      "operand_count": 2,
+      "immediate_bits": 6,
       "semantics": "QPOP stream/queue operation",
       "modes": [
         "SCALAR32",
@@ -2061,6 +2301,8 @@
         "Q0/Q1",
         "args"
       ],
+      "operand_count": 2,
+      "immediate_bits": 6,
       "semantics": "QDUP stream/queue operation",
       "modes": [
         "SCALAR32",
@@ -2088,6 +2330,8 @@
         "Q0/Q1",
         "args"
       ],
+      "operand_count": 2,
+      "immediate_bits": 6,
       "semantics": "QREPL stream/queue operation",
       "modes": [
         "SCALAR32",
@@ -2115,6 +2359,8 @@
         "Q0/Q1",
         "args"
       ],
+      "operand_count": 3,
+      "immediate_bits": 6,
       "semantics": "QCFG stream/queue operation",
       "modes": [
         "SCALAR32",
@@ -2142,6 +2388,8 @@
         "Q0/Q1",
         "args"
       ],
+      "operand_count": 2,
+      "immediate_bits": 6,
       "semantics": "QCIRC stream/queue operation",
       "modes": [
         "SCALAR32",
@@ -2161,6 +2409,32 @@
       "aliases": []
     },
     {
+      "mnemonic": "QSTEP",
+      "primary": "0xB",
+      "subop": 8,
+      "format": "STREAM_QSTEP",
+      "operands": [
+        "Qn"
+      ],
+      "operand_count": 1,
+      "immediate_bits": 0,
+      "semantics": "Advance pinned-stream phase without transferring data",
+      "modes": [
+        "SCALAR32"
+      ],
+      "issue_slot": "B",
+      "latency": 1,
+      "initiation_interval": 1,
+      "flags": [],
+      "exceptions": [
+        "stream_config"
+      ],
+      "attributes": [
+        "stream_state"
+      ],
+      "aliases": []
+    },
+    {
       "mnemonic": "LOOPSET",
       "primary": "0xC",
       "subop": 0,
@@ -2168,6 +2442,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": null,
+      "immediate_bits": null,
       "semantics": "LOOPSET low-overhead loop or address-generation control",
       "modes": [
         "SCALAR32"
@@ -2190,6 +2466,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": null,
+      "immediate_bits": null,
       "semantics": "LOOPEND low-overhead loop or address-generation control",
       "modes": [
         "SCALAR32"
@@ -2212,6 +2490,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": null,
+      "immediate_bits": null,
       "semantics": "AGUCFG low-overhead loop or address-generation control",
       "modes": [
         "SCALAR32"
@@ -2232,6 +2512,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": null,
+      "immediate_bits": null,
       "semantics": "STRIDE low-overhead loop or address-generation control",
       "modes": [
         "SCALAR32"
@@ -2252,6 +2534,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": 2,
+      "immediate_bits": 6,
       "semantics": "MRS system operation",
       "modes": [
         "SCALAR32"
@@ -2276,6 +2560,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": 2,
+      "immediate_bits": 6,
       "semantics": "MSR system operation",
       "modes": [
         "SCALAR32"
@@ -2300,6 +2586,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": 0,
+      "immediate_bits": 0,
       "semantics": "EI system operation",
       "modes": [
         "SCALAR32"
@@ -2324,6 +2612,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": 0,
+      "immediate_bits": 0,
       "semantics": "DI system operation",
       "modes": [
         "SCALAR32"
@@ -2348,6 +2638,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": 0,
+      "immediate_bits": 0,
       "semantics": "IRET system operation",
       "modes": [
         "SCALAR32"
@@ -2372,6 +2664,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": 1,
+      "immediate_bits": 6,
       "semantics": "ASCALL system operation",
       "modes": [
         "SCALAR32"
@@ -2396,6 +2690,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": 1,
+      "immediate_bits": 6,
       "semantics": "TIMERLOAD system operation",
       "modes": [
         "SCALAR32"
@@ -2420,6 +2716,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": 1,
+      "immediate_bits": 6,
       "semantics": "TIMERVEC system operation",
       "modes": [
         "SCALAR32"
@@ -2444,6 +2742,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": 1,
+      "immediate_bits": 6,
       "semantics": "TIMERCTL system operation",
       "modes": [
         "SCALAR32"
@@ -2468,6 +2768,8 @@
       "operands": [
         "args"
       ],
+      "operand_count": 1,
+      "immediate_bits": 0,
       "semantics": "RDCYCLE system operation",
       "modes": [
         "SCALAR32"
@@ -2483,6 +2785,161 @@
       "aliases": []
     },
     {
+      "mnemonic": "MODE",
+      "primary": "0xD",
+      "subop": 10,
+      "format": "MODE_IMM",
+      "operands": [
+        "mode3"
+      ],
+      "operand_count": 1,
+      "immediate_bits": 3,
+      "semantics": "ARITH_MODE = mode3; later mode-sensitive operations use the selected scalar/packed/low-lane/paired mode",
+      "modes": [
+        "SCALAR32"
+      ],
+      "issue_slot": "A",
+      "latency": 1,
+      "initiation_interval": 1,
+      "flags": [],
+      "exceptions": [],
+      "attributes": [],
+      "aliases": [
+        "MODECLR = MODE #SCALAR32"
+      ]
+    },
+    {
+      "mnemonic": "WFI",
+      "primary": "0xD",
+      "subop": 11,
+      "format": "SYSTEM_NONE",
+      "operands": [],
+      "operand_count": 0,
+      "immediate_bits": 0,
+      "semantics": "Retire older instructions and wait until an enabled interrupt is serviceable",
+      "modes": [
+        "SCALAR32"
+      ],
+      "issue_slot": "A",
+      "latency": 1,
+      "initiation_interval": 1,
+      "flags": [],
+      "exceptions": [],
+      "attributes": [
+        "serializing"
+      ],
+      "aliases": []
+    },
+    {
+      "mnemonic": "WFE",
+      "primary": "0xD",
+      "subop": 12,
+      "format": "SYSTEM_NONE",
+      "operands": [],
+      "operand_count": 0,
+      "immediate_bits": 0,
+      "semantics": "Retire older instructions and wait for an architectural event",
+      "modes": [
+        "SCALAR32"
+      ],
+      "issue_slot": "A",
+      "latency": 1,
+      "initiation_interval": 1,
+      "flags": [],
+      "exceptions": [],
+      "attributes": [
+        "serializing"
+      ],
+      "aliases": []
+    },
+    {
+      "mnemonic": "HALT",
+      "primary": "0xD",
+      "subop": 13,
+      "format": "SYSTEM_NONE",
+      "operands": [],
+      "operand_count": 0,
+      "immediate_bits": 0,
+      "semantics": "Privileged halt until allowed wake, debug, or reset",
+      "modes": [
+        "SCALAR32"
+      ],
+      "issue_slot": "A",
+      "latency": 1,
+      "initiation_interval": 1,
+      "flags": [],
+      "exceptions": [
+        "privilege_fault"
+      ],
+      "attributes": [
+        "privileged",
+        "serializing"
+      ],
+      "aliases": []
+    },
+    {
+      "mnemonic": "CTXSAVE",
+      "primary": "0xD",
+      "subop": 14,
+      "format": "SYSTEM_CTX",
+      "operands": [
+        "Rbase",
+        "mask"
+      ],
+      "operand_count": 2,
+      "immediate_bits": 8,
+      "semantics": "Privileged atomic context save using the shared stream-style memory path",
+      "modes": [
+        "SCALAR32"
+      ],
+      "issue_slot": "A",
+      "latency": 4,
+      "initiation_interval": 1,
+      "flags": [],
+      "exceptions": [
+        "privilege_fault",
+        "alignment",
+        "access_fault"
+      ],
+      "attributes": [
+        "privileged",
+        "ordered_memory",
+        "serializing"
+      ],
+      "aliases": []
+    },
+    {
+      "mnemonic": "CTXRESTORE",
+      "primary": "0xD",
+      "subop": 15,
+      "format": "SYSTEM_CTX",
+      "operands": [
+        "Rbase",
+        "mask"
+      ],
+      "operand_count": 2,
+      "immediate_bits": 8,
+      "semantics": "Privileged atomic context restore; PSR and PC commit last",
+      "modes": [
+        "SCALAR32"
+      ],
+      "issue_slot": "A",
+      "latency": 4,
+      "initiation_interval": 1,
+      "flags": [],
+      "exceptions": [
+        "privilege_fault",
+        "alignment",
+        "access_fault"
+      ],
+      "attributes": [
+        "privileged",
+        "ordered_memory",
+        "serializing"
+      ],
+      "aliases": []
+    },
+    {
       "mnemonic": "EXT",
       "primary": "0xE",
       "subop": 0,
@@ -2490,6 +2947,8 @@
       "operands": [
         "extension_word"
       ],
+      "operand_count": 1,
+      "immediate_bits": 12,
       "semantics": "Extension escape for long immediates, masks, addresses, and system forms",
       "modes": [
         "SCALAR32",
@@ -2517,6 +2976,8 @@
       "operands": [
         "implementation_defined"
       ],
+      "operand_count": 1,
+      "immediate_bits": 12,
       "semantics": "Reserved implementation/profile extension",
       "modes": [
         "SCALAR32"

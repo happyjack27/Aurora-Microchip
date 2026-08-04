@@ -1,0 +1,352 @@
+{
+  "schema_version": "1.0",
+  "architecture": "Aurora v1.2",
+  "word_bits": 16,
+  "byte_order": "little",
+  "_readme": [
+    "This file defines, per instruction FORMAT (see the 'format' column of",
+    "aurora_v1_2_isa.json), the exact bit position of every sub-field of the",
+    "16-bit instruction word, so a mnemonic + operands can be packed into a",
+    "literal integer (and unpacked back).",
+    "",
+    "Every field bit-range is inclusive [hi, lo], matching the datasheet's own",
+    "'15:12' style notation.",
+    "",
+    "'status' is either:",
+    "  normative - the exact field layout is stated (as a bit diagram or a",
+    "              fully-worked binary/hex example) in AUR-ARCH-005 and its",
+    "              addenda (extracted from the .docx sources under docs/).",
+    "  inferred  - AUR-ARCH-005 itself says the sub-byte field layout for this",
+    "              format is NOT YET RATIFIED ('Fields below bit 8 are",
+    "              format-dependent; instruction-specific pages must state",
+    "              their exact interpretation' / 'Future instruction-family",
+    "              revisions will add complete per-instruction operand-field",
+    "              diagrams'). The layout below is a reasonable, internally",
+    "              consistent placeholder designed by extension of the",
+    "              normative formats, ONLY so that mnemonic->bits translation",
+    "              is possible today. Treat as provisional pending an ADR.",
+    "",
+    "KNOWN OPEN CONFLICT (flagged, not resolved here):",
+    "  The canonical instruction DB assigns 0xC0..0xC3 to LOOPSET/LOOPEND/",
+    "  AGUCFG/STRIDE (format LOOP_AGU). The 'Hardware Loop Update - Aurora",
+    "  v1.2g' addendum in AUR-ARCH-005 instead defines 0xC0=LOOP (format",
+    "  LOOP_IMM8, repeat-with-replay semantics) and 0xC1=NOP, with 0xC2/0xC3",
+    "  unassigned. These are mutually exclusive designs for the same opcode",
+    "  slot. Both layouts are recorded below (LOOP_AGU as inferred/legacy,",
+    "  LOOP_IMM8/SYSTEM_NONE-style NOP as normative-but-conflicting) - a human",
+    "  decision is required on which one is current before silicon/RTL work",
+    "  proceeds on primary opcode 0xC."
+  ],
+  "register_field": {
+    "width_bits": 4,
+    "count": 16,
+    "encoding": "Rn -> binary value n (R0=0000 ... R15=1111)"
+  },
+  "formats": {
+    "RRR": {
+      "status": "normative",
+      "source": "AUR-ARCH-005 v1.2d Sec.3/5 (worked example ADD R1,R1,R2 = 0x0012)",
+      "used_by_format_names": ["RRR"],
+      "fields": [
+        { "name": "primary", "bits": [15, 12] },
+        { "name": "subop",   "bits": [11, 8] },
+        { "name": "Rd_Ra",   "bits": [7, 4] },
+        { "name": "Rb",      "bits": [3, 0] }
+      ]
+    },
+    "RRR_OR_ACC": {
+      "status": "normative",
+      "source": "AUR-ARCH-005 v1.2d Sec.5 (worked example DIVSTEP R1,R1,R2 = 0x3412); MUL/MULH/MAC/MAS share the same physical layout, differing only in subop and accumulator semantics",
+      "used_by_format_names": ["RRR_OR_ACC"],
+      "fields": [
+        { "name": "primary", "bits": [15, 12] },
+        { "name": "subop",   "bits": [11, 8] },
+        { "name": "Rd_Ra",   "bits": [7, 4] },
+        { "name": "Rb",      "bits": [3, 0] }
+      ],
+      "note": "For MAC/MAS the implicit accumulator (A0/A1) is selected by subop, not by an operand bit."
+    },
+    "RRI": {
+      "status": "normative",
+      "source": "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams",
+      "used_by_format_names": ["RRI"],
+      "fields": [
+        { "name": "primary", "bits": [15, 12] },
+        { "name": "subop",   "bits": [11, 8] },
+        { "name": "Rd_Ra",   "bits": [7, 4] },
+        { "name": "IMM4",    "bits": [3, 0], "signed": true }
+      ],
+      "extension": {
+        "trigger": "wider immediate than 4 bits requested",
+        "mechanism": "attach one 0xE EXT word immediately after; EXT word supplies the additional high-order immediate bits (merge rule: EXT low 12 bits are the sign-extended upper bits, concatenated above IMM4)",
+        "status": "inferred"
+      }
+    },
+    "SHIFT": {
+      "status": "normative",
+      "source": "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams",
+      "used_by_format_names": ["SHIFT"],
+      "fields": [
+        { "name": "primary",     "bits": [15, 12] },
+        { "name": "subop",       "bits": [11, 8] },
+        { "name": "Rd_Ra",       "bits": [7, 4] },
+        { "name": "count_or_Rs", "bits": [3, 0] }
+      ]
+    },
+    "MEM": {
+      "status": "normative",
+      "source": "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams",
+      "used_by_format_names": ["MEM"],
+      "fields": [
+        { "name": "primary",      "bits": [15, 12] },
+        { "name": "mode_width",   "bits": [11, 8] },
+        { "name": "Rd_Rs",        "bits": [7, 4] },
+        { "name": "base_or_off",  "bits": [3, 0] }
+      ],
+      "extension": {
+        "trigger": "displacement/offset wider than 4 bits",
+        "mechanism": "attach one 0xE EXT word supplying the extra displacement bits",
+        "status": "inferred"
+      }
+    },
+    "BR": {
+      "status": "normative",
+      "source": "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams; Sec.4 B.* inventory (0x80-0x87)",
+      "used_by_format_names": ["BR"],
+      "fields": [
+        { "name": "primary", "bits": [15, 12] },
+        { "name": "cond",    "bits": [11, 8] },
+        { "name": "disp8",   "bits": [7, 0], "signed": true }
+      ],
+      "extension": {
+        "trigger": "branch target out of +/-128 byte-pair range of disp8",
+        "mechanism": "attach one 0xE EXT word supplying extended displacement",
+        "status": "inferred"
+      }
+    },
+    "CTRL": {
+      "status": "inferred",
+      "source": "AUR-ARCH-005 only lists CALL/JMP/RET/JMPR at the mnemonic+opcode level (Sec.4, 0x90-0x93); no sub-byte field diagram is published",
+      "used_by_format_names": ["CTRL"],
+      "fields": [
+        { "name": "primary",     "bits": [15, 12] },
+        { "name": "subop",       "bits": [11, 8] },
+        { "name": "reg_or_disp", "bits": [7, 0], "signed": true }
+      ],
+      "note": "JMPR reads bits [3:0] as Rs (register-indirect target), remaining bits reserved=0. CALL/JMP read bits [7:0] as a signed PC-relative displacement (extendable via 0xE EXT word, same mechanism as BR). RET takes no operand (field ignored, must be 0)."
+    },
+    "STACK": {
+      "status": "inferred",
+      "source": "AUR-ARCH-005 only lists PUSH/POP/PUSHM/POPM at the mnemonic+opcode level (Sec.4, 0xA0-0xA3); no sub-byte field diagram is published",
+      "used_by_format_names": ["STACK"],
+      "fields": [
+        { "name": "primary",     "bits": [15, 12] },
+        { "name": "subop",       "bits": [11, 8] },
+        { "name": "reg_or_flag", "bits": [7, 4] },
+        { "name": "reserved",    "bits": [3, 0] }
+      ],
+      "note": "PUSH/POP (single-register form) use bits [7:4] as Rs/Rd; PAIRED64 mode pushes/pops an aligned register pair named by the same field. PUSHM/POPM (multi-register form) cannot fit a 16-entry register mask in the remaining byte: they MUST attach one 0xE EXT word whose low 16 bits are the full register mask (bit i => Ri included), with the base word's [7:4] field unused/reserved=0."
+    },
+    "STREAM": {
+      "status": "normative",
+      "source": "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram",
+      "used_by_format_names": ["STREAM"],
+      "fields": [
+        { "name": "primary",      "bits": [15, 12] },
+        { "name": "subop",        "bits": [11, 8] },
+        { "name": "select",       "bits": [7, 6] },
+        { "name": "control_arg",  "bits": [5, 0] }
+      ],
+      "note": "select picks Q0 vs Q1 (bit 6) plus one spare mode bit (bit 7); control_arg carries a register number, small immediate, or sub-field selector depending on the instruction. QCFG additionally decodes control_arg per the QCFG_FIELD table below."
+    },
+    "STREAM_QSTEP": {
+      "status": "normative",
+      "source": "AUR-ARCH-005 'Pinned Circular Streams v1.2h' addendum, explicit bit diagram: 15:12=1011, 11:8=1000, 7:4=Qn/0, 3:0=reserved(0)",
+      "used_by_format_names": ["STREAM_QSTEP"],
+      "fields": [
+        { "name": "primary",  "bits": [15, 12] },
+        { "name": "subop",    "bits": [11, 8] },
+        { "name": "Qn",       "bits": [7, 4] },
+        { "name": "reserved", "bits": [3, 0], "must_be": 0 }
+      ]
+    },
+    "QCFG_FIELD": {
+      "status": "inferred",
+      "source": "AUR-ARCH-005 v1.2c/h addenda define the QCFG field enumeration (ADDR, INNER_STRIDE, INNER_COUNT, OUTER_ADJUST, OUTER_COUNT, WIDTH, END_MODE) and syntax 'QCFG Qn, field, Rs/imm' but not a sub-byte bit diagram",
+      "used_by_format_names": ["QCFG_FIELD"],
+      "fields": [
+        { "name": "primary", "bits": [15, 12] },
+        { "name": "subop",   "bits": [11, 8], "must_be": 6 },
+        { "name": "Qn",      "bits": [7, 7] },
+        { "name": "field",  "bits": [6, 4] },
+        { "name": "reserved", "bits": [3, 0] }
+      ],
+      "field_enum": {
+        "0": "ADDR", "1": "INNER_STRIDE", "2": "INNER_COUNT", "3": "OUTER_ADJUST",
+        "4": "OUTER_COUNT", "5": "WIDTH", "6": "END_MODE"
+      },
+      "extension": {
+        "trigger": "always for register/immediate value operand (no room left in base word)",
+        "mechanism": "attach one 0xE EXT word whose low bits carry Rs (register form) or the immediate value",
+        "status": "inferred"
+      }
+    },
+    "SYSTEM": {
+      "status": "normative",
+      "source": "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram (shared layout)",
+      "used_by_format_names": ["SYSTEM"],
+      "fields": [
+        { "name": "primary",      "bits": [15, 12] },
+        { "name": "subop",        "bits": [11, 8] },
+        { "name": "select",       "bits": [7, 6] },
+        { "name": "control_arg",  "bits": [5, 0] }
+      ],
+      "note": "Used by MRS/MSR/EI/DI/IRET/ASCALL/TIMERLOAD/TIMERVEC/TIMERCTL/RDCYCLE. control_arg carries the system-register selector or small immediate."
+    },
+    "SYSTEM_NONE": {
+      "status": "normative",
+      "source": "AUR-ARCH-005 'System Architecture Update v1.2e' addendum: generic encoding diagram 15:12=1101 / 11:8=subop(B-F) / instruction-specific bits, with WFI/WFE/HALT stated to take no operand",
+      "used_by_format_names": ["SYSTEM_NONE"],
+      "fields": [
+        { "name": "primary",  "bits": [15, 12] },
+        { "name": "subop",    "bits": [11, 8] },
+        { "name": "reserved", "bits": [7, 0], "must_be": 0 }
+      ]
+    },
+    "SYSTEM_CTX": {
+      "status": "inferred",
+      "source": "AUR-ARCH-005 v1.2e addendum defines the 8-bit Context Mask Groups table (bits 0-7 = VOLATILE_GPR..FULL) for CTXSAVE/CTXRESTORE 'Rbase, mask' operands, but the mask table alone fully occupies the remaining byte, leaving no room for Rbase in the base word",
+      "used_by_format_names": ["SYSTEM_CTX"],
+      "fields": [
+        { "name": "primary", "bits": [15, 12] },
+        { "name": "subop",   "bits": [11, 8] },
+        { "name": "mask",    "bits": [7, 0] }
+      ],
+      "extension": {
+        "trigger": "always (Rbase has no room in the base word)",
+        "mechanism": "mandatory attached 0xE EXT word; bits [3:0] of the EXT word supply Rbase",
+        "status": "inferred"
+      },
+      "mask_bits": {
+        "0": "VOLATILE_GPR (R0-R7)", "1": "NONVOLATILE_GPR (R8-R13)", "2": "CONTROL (PC, PSR)",
+        "3": "ACCUMULATORS (A0, A1)", "4": "STREAM_CONFIG", "5": "STREAM_STAGING",
+        "6": "IMPLEMENTATION_EXT", "7": "FULL (all implemented groups)"
+      }
+    },
+    "MODE_IMM": {
+      "status": "normative",
+      "source": "AUR-ARCH-005 'Revision 1.2c: MODE and Two-Dimensional Streams' addendum, explicit bit diagram: 15:12=1101, 11:8=1010, 7:5=mode, 4:0=reserved(0)",
+      "used_by_format_names": ["MODE_IMM"],
+      "fields": [
+        { "name": "primary",  "bits": [15, 12] },
+        { "name": "subop",    "bits": [11, 8], "must_be": 10 },
+        { "name": "mode",     "bits": [7, 5] },
+        { "name": "reserved", "bits": [4, 0], "must_be": 0 }
+      ],
+      "mode_enum": {
+        "0": "SCALAR32", "1": "PACKED16", "2": "PACKED8", "3": "LOW16", "4": "LOW8", "5": "PAIRED64"
+      }
+    },
+    "RR_OR_UNARY": {
+      "status": "inferred",
+      "source": "AUR-ARCH-005 lists PACK/UNPACK/ZIP/UNZIP/BSWAP/WSWAP/SHUFFLE/MOV at the mnemonic+opcode level only, but the 'Extension and Bounds Faults v1.2f' addendum gives a normative worked layout for the same family's ZEXT8/SEXT8/ZEXT16/SEXT16 (Rd, Rs two-register form) which is reused here for consistency",
+      "used_by_format_names": ["RR_OR_UNARY"],
+      "fields": [
+        { "name": "primary", "bits": [15, 12] },
+        { "name": "subop",   "bits": [11, 8] },
+        { "name": "Rd",      "bits": [7, 4] },
+        { "name": "Rs_or_Rb", "bits": [3, 0] }
+      ],
+      "note": "For strictly-unary ops (BSWAP, WSWAP) bits [3:0] are reserved=0. SHUFFLE's lane-select immediate reuses bits [3:0] in place of Rb."
+    },
+    "DSP_RED": {
+      "status": "inferred",
+      "source": "AUR-ARCH-005 lists REDUCE.* at the mnemonic+opcode level only (Sec.4, 0x40/0x41); no sub-byte field diagram is published",
+      "used_by_format_names": ["DSP_RED"],
+      "fields": [
+        { "name": "primary",       "bits": [15, 12] },
+        { "name": "subop",         "bits": [11, 8] },
+        { "name": "acc_sel",       "bits": [7, 7] },
+        { "name": "src",           "bits": [6, 3] },
+        { "name": "fold",          "bits": [2, 2] },
+        { "name": "local",         "bits": [1, 1] },
+        { "name": "reserved",      "bits": [0, 0], "must_be": 0 }
+      ],
+      "note": "acc_sel: 0=A0,1=A1. fold: 0=overwrite,1=fold-into-accumulator. local: 0=consume(from stream),1=local(register operand)."
+    },
+    "DSP_DOT": {
+      "status": "inferred",
+      "source": "AUR-ARCH-005 lists DOT at the mnemonic+opcode level only (Sec.4, 0x48); needs two source operands, which do not fit in the 8 bits remaining after subop",
+      "used_by_format_names": ["DSP_DOT"],
+      "fields": [
+        { "name": "primary", "bits": [15, 12] },
+        { "name": "subop",   "bits": [11, 8] },
+        { "name": "acc_sel", "bits": [7, 7] },
+        { "name": "src0",    "bits": [6, 3] },
+        { "name": "reserved", "bits": [2, 0] }
+      ],
+      "extension": {
+        "trigger": "always (second source register has no room in the base word)",
+        "mechanism": "mandatory attached 0xE EXT word; bits [3:0] supply src1",
+        "status": "inferred"
+      }
+    },
+    "DSP_SAD": {
+      "status": "inferred",
+      "source": "AUR-ARCH-005 lists SAD at the mnemonic+opcode level only (Sec.4, 0x49); same two-source constraint as DSP_DOT",
+      "used_by_format_names": ["DSP_SAD"],
+      "fields": [
+        { "name": "primary", "bits": [15, 12] },
+        { "name": "subop",   "bits": [11, 8] },
+        { "name": "acc_sel", "bits": [7, 7] },
+        { "name": "src0",    "bits": [6, 3] },
+        { "name": "reserved", "bits": [2, 0] }
+      ],
+      "extension": {
+        "trigger": "always (second source register has no room in the base word)",
+        "mechanism": "mandatory attached 0xE EXT word; bits [3:0] supply src1",
+        "status": "inferred"
+      }
+    },
+    "LOOP_AGU": {
+      "status": "inferred-legacy-conflicting",
+      "source": "Canonical isa/database assigns LOOPSET(0xC0)/LOOPEND(0xC1)/AGUCFG(0xC2)/STRIDE(0xC3) to this format, but no AUR-ARCH-005 bit diagram exists for it, and the v1.2g addendum reassigns 0xC0/0xC1 to an entirely different LOOP/NOP mechanism (see LOOP_IMM8 below). CONFLICT NOT RESOLVED - flagged for human decision.",
+      "used_by_format_names": ["LOOP_AGU"],
+      "fields": [
+        { "name": "primary",  "bits": [15, 12] },
+        { "name": "subop",    "bits": [11, 8] },
+        { "name": "args",     "bits": [7, 0] }
+      ]
+    },
+    "LOOP_IMM8": {
+      "status": "normative-but-conflicts-with-LOOP_AGU",
+      "source": "AUR-ARCH-005 'Hardware Loop Update v1.2g' addendum, explicit bit diagram: 15:12=1100, 11:8=0000(LOOP)/0001(NOP), 7:0=count_minus_one (LOOP only)",
+      "used_by_format_names": ["LOOP_IMM8 (not currently referenced by any canonical mnemonic - see conflict note)"],
+      "fields": [
+        { "name": "primary",         "bits": [15, 12] },
+        { "name": "subop",           "bits": [11, 8] },
+        { "name": "count_minus_one", "bits": [7, 0] }
+      ],
+      "note": "Iterations = count_minus_one + 1 (range 1-256). NOP (subop=1) ignores bits [7:0], must be 0."
+    },
+    "EXT": {
+      "status": "inferred",
+      "source": "AUR-ARCH-005 Sec.6 Encoding Rules: '0xE extension words belong to the preceding base instruction and cannot be branch targets.' No merge-rule bit diagram is published for how EXT payload combines with each base format.",
+      "used_by_format_names": ["EXT"],
+      "fields": [
+        { "name": "primary", "bits": [15, 12], "must_be": 14 },
+        { "name": "payload", "bits": [11, 0] }
+      ],
+      "note": "Merge rule with the preceding base word is instruction/format specific (see each format's 'extension' entry above); no single universal rule is confirmed."
+    },
+    "CUSTOM": {
+      "status": "inferred",
+      "source": "AUR-ARCH-005 Sec.6 Encoding Rules: '0xF is reserved for implementation-defined/custom expansion and must trap when unsupported.'",
+      "used_by_format_names": ["CUSTOM"],
+      "fields": [
+        { "name": "primary",              "bits": [15, 12], "must_be": 15 },
+        { "name": "implementation_defined", "bits": [11, 0] }
+      ]
+    }
+  }
+}
