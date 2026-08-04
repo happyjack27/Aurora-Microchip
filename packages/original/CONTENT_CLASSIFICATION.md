@@ -21,18 +21,21 @@ the rest of the repository to determine whether it was already present. Results 
 | `AUR-PM-002_ADR_Register_v1_2` | Aurora_Project_v1_2_Organized_Repository | [decision-logs/source-registers/Aurora_Architecture_Decision_Register_ADR_v1_2.md](../../decision-logs/source-registers/Aurora_Architecture_Decision_Register_ADR_v1_2.md) |
 | `AUR-PM-003_Expanded_ADR_Set_v1_2` | Aurora_Project_v1_2_Organized_Repository | [decision-logs/source-registers/Aurora_Expanded_ADR_Set_v1_2.md](../../decision-logs/source-registers/Aurora_Expanded_ADR_Set_v1_2.md) |
 | `AUR-PM-001_Documentation_Master_Index_v1_2` | Aurora_Project_v1_2_Organized_Repository | [docs/governance/Aurora_Documentation_Master_Index_v1_2.md](../../docs/governance/Aurora_Documentation_Master_Index_v1_2.md) |
+| `AUR-ARCH-005_Instruction_Reference_v1_2` (no letter, timing/flags companion doc) | Aurora_Project_v1_2_Organized_Repository | [docs/isa/Aurora_Architecture_v1_2_Complete_Instruction_Reference_and_Timing.md](../../docs/isa/Aurora_Architecture_v1_2_Complete_Instruction_Reference_and_Timing.md) — verified byte-identical via diff; originally misfiled as "superseded" below, corrected 2026-08-04 |
 
 No action taken — left in `extracted/` only.
 
 ## Superseded — differs from a newer revision already in the repo
 
-| Extracted file | Package | Superseded by |
-|---|---|---|
-| `AUR-ARCH-005_Aurora_Instruction_Reference_Full_v1_2o` | Aurora_DMA_and_Reduction_Separation_Update_v1_2o | `docs/canonical/AUR-ARCH-005_..._Full_v1_2s.md` (final) |
-| `AUR-ARCH-005_Aurora_Instruction_Reference_Full_v1_2r` | Aurora_Implicit_Stream_Arithmetic_Rule_v1_2r | same, `v1_2s` (final) |
-| `AUR-ARCH-005_Instruction_Reference_v1_2` (no letter) | Aurora_Project_v1_2_Organized_Repository | same, `v1_2s` (final) |
-| `AUR-ARCH-003_ABI_Specification_v1_2` | Aurora_Project_v1_2_Organized_Repository | [docs/abi/AUR-ARCH-003_ABI_Specification_v1_2b.md](../../docs/abi/AUR-ARCH-003_ABI_Specification_v1_2b.md) (confirmed content differs) |
-| `AUR-ARCH-007_Microarchitecture_v1_2a` | Aurora_Project_v1_2_Organized_Repository | [docs/microarchitecture/AUR-ARCH-007_Microarchitecture_v1_2b.md](../../docs/microarchitecture/AUR-ARCH-007_Microarchitecture_v1_2b.md) |
+Each row below was checked with an actual diff (not just version-letter ordering) to confirm no
+content unique to the older draft is missing from the successor.
+
+| Extracted file | Package | Superseded by | Verification |
+|---|---|---|---|
+| `AUR-ARCH-005_Aurora_Instruction_Reference_Full_v1_2o` | Aurora_DMA_and_Reduction_Separation_Update_v1_2o | `docs/canonical/AUR-ARCH-005_..._Full_v1_2s.md` (final) | This is one append-only consolidated manual: every section heading in `v1_2o` (1297 lines) appears verbatim and in the same order inside `v1_2s` (1517 lines), which then continues with the later `v1.2p/q/r/s` addenda. Strict prefix, nothing dropped. |
+| `AUR-ARCH-005_Aurora_Instruction_Reference_Full_v1_2r` | Aurora_Implicit_Stream_Arithmetic_Rule_v1_2r | same, `v1_2s` (final) | Same append-only structure (1463 -> 1517 lines); `v1_2r`'s headings are a prefix of `v1_2s`'s. |
+| `AUR-ARCH-003_ABI_Specification_v1_2` | Aurora_Project_v1_2_Organized_Repository | [docs/abi/AUR-ARCH-003_ABI_Specification_v1_2b.md](../../docs/abi/AUR-ARCH-003_ABI_Specification_v1_2b.md) | Full diff shows a single paragraph rewritten, replacing "Slot A/Slot B" scheduling language with symmetric-lane language — no content removed, only terminology corrected. |
+| `AUR-ARCH-007_Microarchitecture_v1_2a` | Aurora_Project_v1_2_Organized_Repository | [docs/microarchitecture/AUR-ARCH-007_Microarchitecture_v1_2b.md](../../docs/microarchitecture/AUR-ARCH-007_Microarchitecture_v1_2b.md) | Full diff is small; `v1_2b` contains an explicit "Architecture Correction (v1.2a): Symmetric Dual-Issue Lanes" section documenting that it intentionally supersedes `v1_2a`'s fixed Slot A/Slot B model (e.g. dedicated divider -> DIVSTEP shared-ALU model). Deliberate correction, not lost content. |
 
 No action taken — left in `extracted/` only, as historical drafts.
 
