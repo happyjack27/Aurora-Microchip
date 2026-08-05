@@ -38,5 +38,6 @@ This preservation copy combines the original Documentation Decision Register and
 | DDR-0060 | DDR-0060 — Explicit Stream Access Documentation | Partially superseded | documentation-records/DDR-0060_Explicit_Stream_Access_Documentation.docx | Superseded by DDR-0061 where it claimed only POP/PUSH/PEEK could access streams; pure MOV/CMOV documentation remains valid. |
 | DDR-0061 | DDR-0061 — Corrected Stream-Access Documentation Rule | LOCKED | documentation-records/DDR-0061_Corrected_Stream_Access_Documentation_Rule.docx | Standalone documentation decision preserved. |
 | DDR-0062 | DDR-0062 — Prefetch and Hardware-Loop Window Documentation | LOCKED | documentation-records/DDR-0062_Prefetch_and_Hardware_Loop_Window_Documentation.docx | Standalone documentation decision preserved. |
+| DDR-0063 | DDR-0063 — ISA Reconciliation, Confidence Metadata, and AUR-ARCH-004 Supersession | LOCKED | documentation-records/DDR-0063_ISA_Reconciliation_Confidence_Metadata_and_AUR-ARCH-004_Supersession.md | Adopts documentation authority order; marks AUR-ARCH-004 Superseded - pending regeneration; documents confidence/provenance metadata added to isa/database. |
 
 Missing-number note: DDR-0009 through DDR-0045 were not found in the available artifacts and are not invented in this consolidation.

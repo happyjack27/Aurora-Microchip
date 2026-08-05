@@ -3,7 +3,7 @@ AUR-PM-001,Documentation Master Index,Frozen
 AUR-PM-002,ADR Register,Draft
 AUR-ARCH-001,Architecture Bible,Draft
 AUR-ARCH-003,ABI Specification,Frozen
-AUR-ARCH-004,ISA and Opcode Map,Frozen
+AUR-ARCH-004,ISA and Opcode Map,Superseded - pending regeneration
 AUR-ARCH-005,Instruction Reference,Draft
 AUR-ARCH-006,Memory Map,Draft
 AUR-ARCH-007,Microarchitecture,Draft v1.2a

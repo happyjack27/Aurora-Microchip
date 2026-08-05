@@ -11,7 +11,7 @@ This file captures late-session decisions that may not yet be fully merged into 
 - MOV and CMOV never consume or produce stream data.
 - Stream-capable arithmetic, packed, multiply, MAC/MAS, and reduction instructions implicitly consume/produce when Q0/Q1 is selected.
 - POP/PUSH/PEEK remain standalone explicit stream transfers.
-- POPMETA is locked as an aligned register-pair destination concept: value plus ORD/ADDR metadata.
+- POPMETA is locked as an aligned register-pair destination concept: value plus address (meta selector removed, ORD option retired 2026-08-04 along with Qn.ORD_NEXT/ORD_LAST).
 - Two 32-bit prefetch entries plus four decoded words form an eight-16-bit-word captured loop window.
 - Short backward relative branches may replay from the resident eight-word window.
 - Resident replay assumes compiler-enforced single-entry regions; hardware performs no interior-entry detection.

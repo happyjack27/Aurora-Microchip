@@ -130,6 +130,20 @@ class Aurora:
 
     _encode_RRR_OR_ACC = _encode_RRR
 
+    def _encode_RRR_ACC(self, instr, fmt, ra: int, rb: int, accumulator: str | int = "A0") -> int:
+        # MAC/MAS: Ra/Rb are independent operands (no 2-address constraint); accumulator
+        # selection lives in the bit freed by RRR_OR_ACC's subop needing only 3 bits.
+        if isinstance(accumulator, str):
+            inv = {v: int(k) for k, v in fmt["acc_enum"].items()}
+            if accumulator not in inv:
+                raise AuroraEncodingError(f"unknown accumulator {accumulator!r}")
+            accumulator = inv[accumulator]
+        word = self._base(instr)
+        word = pack_field(word, self._field_bits(fmt, "acc_sel"), accumulator)
+        word = pack_field(word, self._field_bits(fmt, "Ra"), ra)
+        word = pack_field(word, self._field_bits(fmt, "Rb"), rb)
+        return word
+
     def _encode_RRI(self, instr, fmt, rd: int, imm4: int, ra: int | None = None) -> int:
         if ra is not None and ra != rd:
             raise AuroraEncodingError("RRI format is 2-address: Ra must equal Rd")
@@ -210,6 +224,27 @@ class Aurora:
         ext_word = pack_field(ext_word, [3, 0], rbase)
         return word, ext_word
 
+    def _encode_LOOP_IMM8(self, instr, fmt, count: int | None = None) -> int:
+        word = self._base(instr)
+        if instr["mnemonic"] == "LOOP":
+            if count is None or not (1 <= count <= 256):
+                raise AuroraEncodingError("LOOP requires count=1..256")
+            word = pack_field(word, self._field_bits(fmt, "count_minus_one"), count - 1)
+        return word
+
+    def _encode_LOOP_REG(self, instr, fmt, rs: int) -> int:
+        word = self._base(instr)
+        word = pack_field(word, self._field_bits(fmt, "Rs"), rs)
+        return word
+
+    def _encode_STREAM_POPMETA(self, instr, fmt, rd: int, qn: int = 0) -> int:
+        if rd % 2 != 0:
+            raise AuroraEncodingError("POPMETA requires an even-aligned Rd:Rd+1 register pair")
+        word = self._base(instr)
+        word = pack_field(word, self._field_bits(fmt, "Rd"), rd)
+        word = pack_field(word, self._field_bits(fmt, "Qn"), qn)
+        return word
+
     # ------------------------------------------------------------------
     # Decode
     # ------------------------------------------------------------------
@@ -257,6 +292,21 @@ def _self_test() -> None:
     d = a.decode(0x3412)
     assert d["mnemonic"] == "DIVSTEP", d
 
+    # MAC A0, R2, R3 -> primary 0x3, acc_sel=0, subop=2, Ra=2, Rb=3 -> 0011 0010 0010 0011 = 0x3223
+    w = a.encode("MAC", ra=2, rb=3, accumulator="A0")
+    assert w == 0x3223, f"MAC A0,R2,R3 expected 0x3223, got {w:#06x}"
+
+    # MAC A1, R2, R3 -> acc_sel=1 -> 0011 1010 0010 0011 = 0x3A23
+    w = a.encode("MAC", ra=2, rb=3, accumulator="A1")
+    assert w == 0x3A23, f"MAC A1,R2,R3 expected 0x3A23, got {w:#06x}"
+
+    # MAS A1, R2, R3 -> subop=3, acc_sel=1 -> 0011 1011 0010 0011 = 0x3B23
+    w = a.encode("MAS", ra=2, rb=3, accumulator="A1")
+    assert w == 0x3B23, f"MAS A1,R2,R3 expected 0x3B23, got {w:#06x}"
+
+    d = a.decode(0x3A23)
+    assert d["mnemonic"] == "MAC" and d["fields"]["acc_sel"] == 1, d
+
     # MODE #PACKED16 -> primary 0xD, subop 0xA(10), mode=1 -> 1101 1010 0010 0000 = 0xDA20
     w = a.encode("MODE", mode="PACKED16")
     assert w == 0xDA20, f"MODE #PACKED16 expected 0xDA20, got {w:#06x}"
@@ -268,6 +318,37 @@ def _self_test() -> None:
     # QSTEP Q1 -> primary 0xB, subop 0x8, Qn=1 -> 1011 1000 0001 0000 = 0xB810
     w = a.encode("QSTEP", qn=1)
     assert w == 0xB810, f"QSTEP Q1 expected 0xB810, got {w:#06x}"
+
+    # POPMETA R4:R5, Q0 -> primary 0xB, subop 9, Rd=4, Qn=0 -> 1011 1001 0100 0000 = 0xB940
+    w = a.encode("POPMETA", rd=4, qn=0)
+    assert w == 0xB940, f"POPMETA R4:R5,Q0 expected 0xB940, got {w:#06x}"
+
+    # LOOP #16 -> primary 0xC, subop 0, count_minus_one=15 -> 1100 0000 0000 1111 = 0xC00F
+    w = a.encode("LOOP", count=16)
+    assert w == 0xC00F, f"LOOP #16 expected 0xC00F, got {w:#06x}"
+
+    # NOP -> primary 0xC, subop 1, rest 0 -> 1100 0001 0000 0000 = 0xC100
+    w = a.encode("NOP")
+    assert w == 0xC100, f"NOP expected 0xC100, got {w:#06x}"
+
+    # LOOPR R3 -> primary 0xC, subop 2, Rs=3, reserved 0 -> 1100 0010 0011 0000 = 0xC230
+    w = a.encode("LOOPR", rs=3)
+    assert w == 0xC230, f"LOOPR R3 expected 0xC230, got {w:#06x}"
+
+    # POPMETA requires an even-aligned Rd:Rd+1 pair - odd Rd must be rejected
+    try:
+        a.encode("POPMETA", rd=5, qn=0)
+        raise AssertionError("POPMETA with odd Rd=5 should have raised AuroraEncodingError")
+    except AuroraEncodingError:
+        pass
+
+    # Retired mnemonics (LOOPSET/LOOPEND/AGUCFG/STRIDE) must not be assemblable
+    for retired in ("LOOPSET", "LOOPEND", "AGUCFG", "STRIDE"):
+        try:
+            a.encode(retired)
+            raise AssertionError(f"retired mnemonic {retired!r} should not encode")
+        except AuroraEncodingError:
+            pass
 
     print("All self-tests passed.")
 

@@ -58,6 +58,10 @@ PUSH Q1, R6 ; explicit standalone produce\
 \
 MOV R4, Q0 ; illegal\
 CMOV.GT R4, Q0 ; illegal\
+
+# Amendment (August 4, 2026): ORD_NEXT/ORD_LAST retired, POPMETA narrowed
+
+`ORD_NEXT` and `ORD_LAST` are withdrawn; only `ADDR_NEXT` and `ADDR_LAST` remain as stream position system registers. `POPMETA Rd:Rd+1, Qn, meta` (allocated by ADR-STREAM-009) no longer takes a `meta` operand — it always returns the popped element's address in `Rd+1`. See the ADR-STREAM-009 amendment for the encoding change.
 CMOV.GT Q1, R4 ; illegal
 
 # Rationale

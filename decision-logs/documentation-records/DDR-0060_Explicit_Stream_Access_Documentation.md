@@ -9,6 +9,8 @@ Date: August 3, 2026
 
 - The stream chapter shall document ADDR_NEXT, ADDR_LAST, ORD_NEXT, and ORD_LAST as system registers accessed through system-register transfer instructions.
 
+  **Amendment (August 4, 2026):** ORD_NEXT and ORD_LAST were retired (see ADR-STREAM-007/008/009 amendments). The stream chapter shall document only ADDR_NEXT and ADDR_LAST going forward.
+
 - The simulator and RTL shall advance stream state only when an explicit POP or PUSH successfully retires.
 
 - The compiler backend shall not fold stream consumption into MOV, CMOV, or predicated operations.

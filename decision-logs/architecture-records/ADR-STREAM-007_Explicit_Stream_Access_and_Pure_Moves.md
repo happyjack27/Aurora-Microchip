@@ -53,3 +53,7 @@ Date: August 3, 2026
 # Rationale
 
 Explicit stream operations make every address-changing action visible in assembly and deterministic under stalls, predication, faults, interrupts, and debugging. Keeping MOV and CMOV pure prevents a condition result from changing which stream elements later instructions observe. Metadata remains system state rather than being disguised as GPR operands.
+
+# Amendment (August 4, 2026): ORD_NEXT/ORD_LAST retired
+
+`ORD_NEXT` and `ORD_LAST` are withdrawn as system registers; they added ordinal-index tracking redundant with `ADDR_NEXT`/`ADDR_LAST` for every currently defined consumer (loop bounds already come from `Qn.COUNT`; `POPMETA` now always returns address, see the ADR-STREAM-009 amendment). Each stream now exposes only `ADDR_NEXT` and `ADDR_LAST`. No opcode or encoding changed as a result — this was purely a system-register surface reduction.

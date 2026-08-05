@@ -1,3 +1,12 @@
+> **STATUS: Superseded — pending regeneration** (per DDR-0063, 2026-08-04). This revision predates
+> ADR-ISA-020, ADR-FE-006, ADR-STREAM-009, ADR-ISA-022, and ADR-DSP-018, and its `0xC` opcode-class
+> table below (`LOOP.SET`/`LOOP.END`/`AGU.*`/`CIRC.*`/`ALIGN`/`LEA.S`/`BOUND`) directly conflicts
+> with those locked decisions (which instead define `0xC0`=`LOOP`, `0xC1`=`NOP`, `0xC2`=`LOOPR`,
+> `0xC3`-`0xC9` reserved). Per the documentation authority order adopted in DDR-0063, a document's
+> prior `Frozen` status does not override a newer locked ADR — **the canonical
+> `isa/database/aurora_v1_2_isa.json` (and its YAML/CSV mirrors) is authoritative for opcode
+> assignments until this document is regenerated.** See `docs/governance/AUR-PM-004_Document_Status.csv`.
+
 **Canonical Encoding Draft 1 - August 2026**
 
 This specification converts the v1.2 programmer model and ABI into a concrete 16-bit base instruction map. It preserves compact code density, mode-based packed arithmetic, two-wide issue, stream controls, paired-64 emulation, and extension-word escape space.

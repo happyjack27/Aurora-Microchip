@@ -1,0 +1,429 @@
+Proposal: Resolve Aurora v1.2 ISA Reconciliation Questions
+
+Status: Proposed for architecture review
+Scope: Hardware loops, AGU opcode space, stream-control operations, POPMETA, LOOPR, MAC/MAS operands, document precedence, and machine-readable ISA confidence metadata.
+
+This proposal addresses the unresolved items identified during reconciliation of the Aurora documentation and canonical machine-readable ISA database.
+
+The goals are to:
+
+bring the database into agreement with locked architecture decisions;
+eliminate stale or placeholder instruction definitions;
+preserve opcode space unless an operation provides clear architectural value;
+make the machine-readable ISA the reliable basis for future assembler, simulator, documentation, and RTL generation;
+distinguish settled decisions from benchmark candidates and unresolved assumptions.
+1. Correct opcodes 0xC0 and 0xC1
+Proposal
+
+Replace the provisional database entries:
+
+0xC0  LOOPSET
+0xC1  LOOPEND
+
+with:
+
+0xC0  LOOP #count
+0xC1  NOP
+
+The earlier LOOPSET/LOOPEND design is superseded.
+
+LOOP establishes a low-overhead hardware loop over the following NOP-terminated instruction body. The later eight-word loop-window decision extends the supported captured body size without changing the basic LOOP/NOP encoding model.
+
+Required action
+
+Update all machine-readable ISA representations, opcode tables, instruction descriptions, encoder definitions, decoder definitions, and generated documentation.
+
+This is a mechanical correction rather than a new architecture decision.
+
+2. Retire AGUCFG and STRIDE
+Proposal
+
+Remove the placeholder definitions:
+
+0xC2  AGUCFG
+0xC3  STRIDE
+
+Do not resurrect the older eight-instruction general-purpose AGU class as part of the baseline ISA.
+
+The old AGU operations substantially overlap existing facilities:
+
+ordinary ADD, shift, mask, load, and store operations;
+Q0/Q1 stream stride and circular-address generation;
+stream configuration registers;
+stack and memory-bound checking;
+the MPU and system-control mechanisms.
+
+The old AGUCFG and STRIDE entries lack complete encoding and semantic definitions and should not remain in the canonical database as placeholders.
+
+Proposed opcode-class state
+0xC0  LOOP
+0xC1  NOP
+0xC2  LOOPR
+0xC3–0xC9 reserved
+
+Unused space should remain reserved rather than being filled solely because an older draft listed possible operations.
+
+3. Resolve document precedence
+Problem
+
+AUR-ARCH-004 is marked Frozen, but portions of it predate newer accepted ADRs and conflict with the current hardware-loop, stream, and instruction-reference decisions.
+
+Proposal
+
+Adopt this authority order:
+
+1. Accepted Architecture Decision Records
+2. Current canonical machine-readable architecture database
+3. Current canonical architecture and instruction specifications
+4. Generated instruction references, opcode maps, diagrams, and summaries
+5. Historical, superseded, or exploratory documents
+Required action
+
+Mark the present AUR-ARCH-004 revision:
+
+Superseded — pending regeneration
+
+Then:
+
+update the canonical machine-readable ISA;
+reconcile it against all accepted ADRs;
+regenerate AUR-ARCH-004 from the corrected source;
+validate the regenerated document;
+freeze the new revision.
+
+A document’s old Frozen status must not override a newer accepted ADR.
+
+4. Do not add all legacy stream-management operations as opcodes
+
+The older documentation lists:
+
+QADDR
+QCOUNT
+QSYNC
+QSTAT
+QCLR
+QON
+QOFF
+Proposal
+
+Do not allocate individual opcodes for all of these operations.
+
+Expose as stream system registers
+
+Use the system-register access mechanism for state such as:
+
+Q0.ADDR_NEXT
+Q0.ADDR_LAST
+Q0.ORD_NEXT
+Q0.ORD_LAST
+Q0.COUNT
+Q0.STATUS
+
+Q1.ADDR_NEXT
+Q1.ADDR_LAST
+Q1.ORD_NEXT
+Q1.ORD_LAST
+Q1.COUNT
+Q1.STATUS
+Configuration and reset
+
+Stream enable, disable, reset, and clear behavior should be expressed through QCFG or writable stream-control registers rather than separate QON, QOFF, and QCLR instructions.
+
+DMA synchronization
+
+Do not adopt QSYNC as a stream opcode.
+
+DMA synchronization should use:
+
+DMA status;
+completion and error events;
+interrupts;
+WFE;
+explicit buffer-ownership protocols.
+
+This keeps stream traversal, computation, and DMA transport separate.
+
+5. Allocate POPMETA at 0xB9
+Proposal
+
+Allocate:
+
+POPMETA Rd:Rd+1, Qn, meta
+
+at stream subopcode:
+
+0xB9
+Semantics
+
+POPMETA atomically pops one logical stream item and returns both its data and associated metadata.
+
+Rd     = popped stream data
+Rd+1   = selected metadata
+
+The destination must be an aligned even/odd register pair.
+
+The initial metadata selections should include:
+
+ORD   logical element ordinal
+ADDR  source memory address
+Architectural requirements
+Rd must be even.
+The stream selector chooses Q0 or Q1.
+The data and metadata are committed atomically.
+The stream advances exactly once.
+A fault produces no partial destination-register update.
+A fault produces no partial stream-state update.
+For a packed group, ORD identifies the first lane.
+Packed lane k corresponds to ordinal ORD + k.
+Address metadata represents the address associated with the popped data according to the selected stream format.
+Rationale
+
+POPMETA is useful beyond argmin and argmax. It supports:
+
+indexed filtering;
+parsers;
+sparse-data processing;
+event streams;
+source-position tracking;
+diagnostics;
+associating values with their original memory locations.
+
+It should therefore be retained even if a future fused tracking operation is also adopted.
+
+6. Keep TRACKMIN and TRACKMAX reserved
+Proposal
+
+Do not add TRACKMIN or TRACKMAX to the baseline ISA yet.
+
+Retain them as benchmark candidates.
+
+The generic sequence is already compact:
+
+POPMETA  Rnew:Rnewidx, Q0, ORD
+CMP      Rbest, Rnew
+CMOV.LT  Rbest, Rnew
+CMOV.LT  Rbestidx, Rnewidx
+
+This sequence:
+
+uses ordinary reusable instructions;
+fits inside the eight-word replay window;
+avoids introducing another specialized execution path;
+permits explicit control over tie-breaking.
+
+A fused instruction should be added only if benchmarks demonstrate that the generic sequence is a material bottleneck in representative Aurora workloads.
+
+TRACKMIN  reserved, not encoded
+TRACKMAX  reserved, not encoded
+7. Formally define LOOPR
+Proposal
+
+Make the register-count loop form a real instruction:
+
+LOOPR Rs
+
+Allocate it at:
+
+0xC2
+Semantics
+
+LOOPR Rs repeats the following NOP-terminated loop body using the unsigned iteration count supplied in Rs.
+
+It uses the same hardware-loop machinery and restrictions as immediate LOOP.
+
+Requirements
+The body may occupy up to eight contiguous 16-bit instruction words.
+Extension words count toward the eight-word limit.
+The first terminating NOP marks a short body.
+A full eight-word body may terminate implicitly at the end of the captured window.
+Hardware loops are not nestable.
+Loop bodies may not contain prohibited control-transfer or serializing operations.
+Precise interrupts preserve hardware-loop state.
+Context save and restore preserve hardware-loop state.
+No instruction pairing occurs across the iteration wrap.
+Legal pairing remains permitted inside the body.
+The register count represents the actual iteration count.
+A zero count is illegal or must be checked by software before executing LOOPR.
+Rationale
+
+Immediate-only loop counts are insufficient for runtime-sized:
+
+arrays;
+DMA blocks;
+stream buffers;
+audio frames;
+image rows;
+communication packets;
+dynamically sized DSP kernels.
+8. Correct MAC/MAS operand typing
+Proposal
+
+Define MAC and MAS as:
+
+MAC Ad, Ra, Rb
+MAS Ad, Ra, Rb
+
+where Ad is an accumulator selector rather than an ordinary GPR destination.
+
+Semantics
+MAC Ad, Ra, Rb:
+    Ad ← Ad + Ra × Rb
+
+MAS Ad, Ra, Rb:
+    Ad ← Ad - Ra × Rb
+
+There is no normal GPR destination writeback.
+
+Database correction
+
+Replace:
+
+operands:
+  - dst
+  - Ra
+  - Rb
+
+with:
+
+operands:
+  - accumulator
+  - Ra
+  - Rb
+
+The instruction still has three explicit assembly operands, but the first operand’s type must be accumulator, not gpr_destination.
+
+For complex MAC mode, A0 and A1 may operate as the real/imaginary accumulator pair according to the existing complex-mode rules.
+
+9. Add confidence and provenance metadata to the ISA database
+Proposal
+
+Every instruction and encoding field that is not fully settled should carry explicit confidence and source information.
+
+Suggested fields:
+
+operand_spec_confidence: documented | inferred | unresolved
+encoding_spec_confidence: documented | inferred | unresolved
+semantic_spec_confidence: documented | inferred | unresolved
+
+sources:
+  - ADR-...
+  - DDR-...
+  - AUR-ARCH-...
+
+notes: ...
+Tooling behavior
+documented
+
+The field is supported directly by accepted architecture documentation.
+
+Normal generation is allowed.
+
+inferred
+
+The field is derived from encoding constraints, analogy, or surrounding design but is not explicitly documented.
+
+Generation is allowed only with validation warnings.
+
+unresolved
+
+The field is not sufficiently specified.
+
+Production generation of the affected encoder, RTL decoder, or architectural test should fail until the issue is resolved.
+
+Rationale
+
+This prevents reasonable-looking assumptions from silently becoming permanent hardware contracts.
+
+Proposed decision summary
+
+Approve the following baseline changes:
+
+0xC0 = LOOP
+0xC1 = NOP
+0xC2 = LOOPR
+
+LOOPSET retired
+LOOPEND retired
+AGUCFG retired
+STRIDE retired
+
+0xC3–0xC9 remain reserved
+
+0xB9 = POPMETA
+
+Legacy QADDR/QCOUNT/QSTAT state exposed through system registers
+QCLR/QON/QOFF behavior handled through QCFG/control registers
+QSYNC rejected as a stream opcode
+
+MAC/MAS operand 0 is an accumulator selector, not a GPR destination
+
+AUR-ARCH-004 is marked superseded pending regeneration
+
+Machine-readable ISA fields receive confidence and provenance metadata
+
+Keep the following outside the baseline:
+
+TRACKMIN / TRACKMAX
+Status: reserved for benchmarking
+Required repository updates after approval
+
+The implementation agent should:
+
+Create an ADR covering the ISA decisions in this proposal.
+Create a DDR covering documentation and database reconciliation.
+Update ARCHITECTURE_DECISION_LOG_CURRENT.
+Update DOCUMENTATION_DECISION_LOG_CURRENT.
+Update the canonical JSON, YAML, and CSV ISA databases.
+Update C and Verilog opcode definitions.
+Update assembler and disassembler tables.
+Update instruction operand schemas.
+Update simulator decode and semantics.
+Update RTL decode specifications.
+Update the opcode map.
+Update the instruction reference.
+Mark the old AUR-ARCH-004 revision as superseded.
+Regenerate AUR-ARCH-004.
+Add encoding and semantic tests for LOOP, NOP, LOOPR, and POPMETA.
+Add validation that POPMETA requires an even destination register.
+Add validation that retired mnemonics cannot be assembled.
+Add validation for MAC/MAS accumulator operands.
+Preserve TRACKMIN and TRACKMAX only as reserved benchmark notes.
+Report every modified file and any unresolved encoding issue before committing.
+Copy-paste instruction for the repository agent
+Review and implement the proposal titled
+“Resolve Aurora v1.2 ISA Reconciliation Questions.”
+
+Treat the proposal as approved architecture direction, but do not silently
+invent instruction-bit layouts where the proposal does not provide enough
+encoding information.
+
+Create the required ADR and DDR, update both consolidated decision logs,
+correct all machine-readable ISA formats, update generated and handwritten
+documentation, and update assembler, simulator, RTL decode specifications,
+and tests where present.
+
+Specifically:
+
+- Replace 0xC0 LOOPSET with LOOP.
+- Replace 0xC1 LOOPEND with ordinary NOP.
+- Retire AGUCFG and STRIDE.
+- Allocate 0xC2 to LOOPR.
+- Reserve 0xC3 through 0xC9.
+- Allocate stream subopcode 0xB9 to POPMETA.
+- Do not add the old QADDR/QCOUNT/QSYNC/QSTAT/QCLR/QON/QOFF opcode set.
+- Represent stream state through system registers and QCFG/control state.
+- Keep TRACKMIN and TRACKMAX reserved and unencoded.
+- Change MAC/MAS operand 0 from a GPR destination to an accumulator selector.
+- Add documented/inferred/unresolved confidence and source metadata.
+- Mark the stale AUR-ARCH-004 revision superseded and prepare a regenerated version.
+
+Before changing files, produce an implementation plan identifying:
+1. every affected file,
+2. every generated artifact,
+3. every encoding field that remains ambiguous,
+4. every test that must be added or updated.
+
+After implementation, run all available ISA validation, opcode-collision,
+encoder, decoder, and documentation consistency checks. Return the changed
+file list, validation results, and a unified diff. Do not modify unrelated
+architecture decisions.

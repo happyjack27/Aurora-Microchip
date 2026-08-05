@@ -20,7 +20,7 @@
     "0x9": "CONTROL_FLOW",
     "0xA": "STACK",
     "0xB": "STREAM",
-    "0xC": "LOOP_AGU",
+    "0xC": "LOOP",
     "0xD": "SYSTEM",
     "0xE": "EXTENSION",
     "0xF": "CUSTOM_RESERVED"
@@ -200,7 +200,14 @@
       "attributes": [
         "honors_lane_mask"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3/5 (worked example ADD R1,R1,R2 = 0x0012)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "SUB",
@@ -236,7 +243,14 @@
       "attributes": [
         "honors_lane_mask"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3/5 (worked example ADD R1,R1,R2 = 0x0012)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "AND",
@@ -270,7 +284,14 @@
       "attributes": [
         "honors_lane_mask"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3/5 (worked example ADD R1,R1,R2 = 0x0012)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "OR",
@@ -304,7 +325,14 @@
       "attributes": [
         "honors_lane_mask"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3/5 (worked example ADD R1,R1,R2 = 0x0012)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "XOR",
@@ -338,7 +366,14 @@
       "attributes": [
         "honors_lane_mask"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3/5 (worked example ADD R1,R1,R2 = 0x0012)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "CMP",
@@ -374,7 +409,14 @@
       "attributes": [
         "honors_lane_mask"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3/5 (worked example ADD R1,R1,R2 = 0x0012)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "MIN",
@@ -408,7 +450,14 @@
       "attributes": [
         "honors_lane_mask"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3/5 (worked example ADD R1,R1,R2 = 0x0012)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "MAX",
@@ -442,7 +491,14 @@
       "attributes": [
         "honors_lane_mask"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3/5 (worked example ADD R1,R1,R2 = 0x0012)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "ADDI",
@@ -475,7 +531,14 @@
         "honors_lane_mask",
         "extension_allowed"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "SUBI",
@@ -508,7 +571,14 @@
         "honors_lane_mask",
         "extension_allowed"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "ANDI",
@@ -539,7 +609,14 @@
         "honors_lane_mask",
         "extension_allowed"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "ORI",
@@ -570,7 +647,14 @@
         "honors_lane_mask",
         "extension_allowed"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "XORI",
@@ -601,7 +685,14 @@
         "honors_lane_mask",
         "extension_allowed"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "CMPI",
@@ -634,7 +725,14 @@
         "honors_lane_mask",
         "extension_allowed"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "LSL",
@@ -669,7 +767,14 @@
         "honors_lane_mask",
         "paired64_multicycle"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "LSR",
@@ -704,7 +809,14 @@
         "honors_lane_mask",
         "paired64_multicycle"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "ASR",
@@ -739,7 +851,14 @@
         "honors_lane_mask",
         "paired64_multicycle"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "ROL",
@@ -774,7 +893,14 @@
         "honors_lane_mask",
         "paired64_multicycle"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "ROR",
@@ -809,7 +935,14 @@
         "honors_lane_mask",
         "paired64_multicycle"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "MUL",
@@ -842,7 +975,14 @@
         "scoreboarded",
         "multicycle"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.5 (worked example DIVSTEP R1,R1,R2 = 0x3412); MUL/MULH/MAC/MAS share the same physical layout, differing only in subop and accumulator semantics"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "MULH",
@@ -875,15 +1015,22 @@
         "scoreboarded",
         "multicycle"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.5 (worked example DIVSTEP R1,R1,R2 = 0x3412); MUL/MULH/MAC/MAS share the same physical layout, differing only in subop and accumulator semantics"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "MAC",
       "primary": "0x3",
       "subop": 2,
-      "format": "RRR_OR_ACC",
+      "format": "RRR_ACC",
       "operands": [
-        "dst",
+        "accumulator",
         "Ra",
         "Rb"
       ],
@@ -908,15 +1055,23 @@
         "scoreboarded",
         "multicycle"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.5 (worked example DIVSTEP R1,R1,R2 = 0x3412); MAC/MAS share the same physical primary/subop numbering as MUL/MULH/DIVSTEP/DIV",
+        "ADR-DSP-018"
+      ],
+      "notes": "accumulator operand is bit 11 (acc_sel: 0=A0, 1=A1) - the previously-unused MSB of the RRR_OR_ACC-family subop nibble (subop values 0-5 fit in 3 bits, so bit 11 was always reserved/0). Resolved and locked per ADR-DSP-018 (amended 2026-08-04); format RRR_ACC. Ra/Rb are independent 4-bit register operands, unlike the 2-address Rd=Ra convention MUL/MULH/DIVSTEP/DIV use."
     },
     {
       "mnemonic": "MAS",
       "primary": "0x3",
       "subop": 3,
-      "format": "RRR_OR_ACC",
+      "format": "RRR_ACC",
       "operands": [
-        "dst",
+        "accumulator",
         "Ra",
         "Rb"
       ],
@@ -941,7 +1096,15 @@
         "scoreboarded",
         "multicycle"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.5 (worked example DIVSTEP R1,R1,R2 = 0x3412); MAC/MAS share the same physical primary/subop numbering as MUL/MULH/DIVSTEP/DIV",
+        "ADR-DSP-018"
+      ],
+      "notes": "accumulator operand is bit 11 (acc_sel: 0=A0, 1=A1) - the previously-unused MSB of the RRR_OR_ACC-family subop nibble (subop values 0-5 fit in 3 bits, so bit 11 was always reserved/0). Resolved and locked per ADR-DSP-018 (amended 2026-08-04); format RRR_ACC. Ra/Rb are independent 4-bit register operands, unlike the 2-address Rd=Ra convention MUL/MULH/DIVSTEP/DIV use."
     },
     {
       "mnemonic": "DIVSTEP",
@@ -971,7 +1134,14 @@
       ],
       "exceptions": [],
       "attributes": [],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.5 (worked example DIVSTEP R1,R1,R2 = 0x3412); MUL/MULH/MAC/MAS share the same physical layout, differing only in subop and accumulator semantics"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "DIV",
@@ -1004,7 +1174,14 @@
         "scoreboarded",
         "multicycle"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.5 (worked example DIVSTEP R1,R1,R2 = 0x3412); MUL/MULH/MAC/MAS share the same physical layout, differing only in subop and accumulator semantics"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "REDUCE.ADD",
@@ -1035,7 +1212,14 @@
         "accumulator_select",
         "fold_capable"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists REDUCE.* at the mnemonic+opcode level only (Sec.4, 0x40/0x41); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "REDUCE.AND",
@@ -1066,7 +1250,14 @@
         "accumulator_select",
         "fold_capable"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists REDUCE.* at the mnemonic+opcode level only (Sec.4, 0x40/0x41); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "REDUCE.OR",
@@ -1097,7 +1288,14 @@
         "accumulator_select",
         "fold_capable"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists REDUCE.* at the mnemonic+opcode level only (Sec.4, 0x40/0x41); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "REDUCE.XOR",
@@ -1128,7 +1326,14 @@
         "accumulator_select",
         "fold_capable"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists REDUCE.* at the mnemonic+opcode level only (Sec.4, 0x40/0x41); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "REDUCE.MIN",
@@ -1159,7 +1364,14 @@
         "accumulator_select",
         "fold_capable"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists REDUCE.* at the mnemonic+opcode level only (Sec.4, 0x40/0x41); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "REDUCE.MAX",
@@ -1190,7 +1402,14 @@
         "accumulator_select",
         "fold_capable"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists REDUCE.* at the mnemonic+opcode level only (Sec.4, 0x40/0x41); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "REDUCE.ABSMAX",
@@ -1221,7 +1440,14 @@
         "accumulator_select",
         "fold_capable"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists REDUCE.* at the mnemonic+opcode level only (Sec.4, 0x40/0x41); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "REDUCE.COUNT",
@@ -1252,7 +1478,14 @@
         "accumulator_select",
         "fold_capable"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists REDUCE.* at the mnemonic+opcode level only (Sec.4, 0x40/0x41); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "DOT",
@@ -1284,7 +1517,14 @@
         "accumulator_select",
         "fold_capable"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists DOT at the mnemonic+opcode level only (Sec.4, 0x48); needs two source operands, which do not fit in the 8 bits remaining after subop"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "SAD",
@@ -1316,7 +1556,14 @@
         "accumulator_select",
         "fold_capable"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists SAD at the mnemonic+opcode level only (Sec.4, 0x49); same two-source constraint as DSP_DOT"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "PACK",
@@ -1349,7 +1596,14 @@
         "ignores_lane_mask",
         "dynamic_pairing_candidate"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists PACK/UNPACK/ZIP/UNZIP/BSWAP/WSWAP/SHUFFLE/MOV at the mnemonic+opcode level only, but the 'Extension and Bounds Faults v1.2f' addendum gives a normative worked layout for the same family's ZEXT8/SEXT8/ZEXT16/SEXT16 (Rd, Rs two-register form) which is reused here for consistency"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "UNPACK",
@@ -1382,7 +1636,14 @@
         "ignores_lane_mask",
         "dynamic_pairing_candidate"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists PACK/UNPACK/ZIP/UNZIP/BSWAP/WSWAP/SHUFFLE/MOV at the mnemonic+opcode level only, but the 'Extension and Bounds Faults v1.2f' addendum gives a normative worked layout for the same family's ZEXT8/SEXT8/ZEXT16/SEXT16 (Rd, Rs two-register form) which is reused here for consistency"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "ZIP",
@@ -1415,7 +1676,14 @@
         "ignores_lane_mask",
         "dynamic_pairing_candidate"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists PACK/UNPACK/ZIP/UNZIP/BSWAP/WSWAP/SHUFFLE/MOV at the mnemonic+opcode level only, but the 'Extension and Bounds Faults v1.2f' addendum gives a normative worked layout for the same family's ZEXT8/SEXT8/ZEXT16/SEXT16 (Rd, Rs two-register form) which is reused here for consistency"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "UNZIP",
@@ -1448,7 +1716,14 @@
         "ignores_lane_mask",
         "dynamic_pairing_candidate"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists PACK/UNPACK/ZIP/UNZIP/BSWAP/WSWAP/SHUFFLE/MOV at the mnemonic+opcode level only, but the 'Extension and Bounds Faults v1.2f' addendum gives a normative worked layout for the same family's ZEXT8/SEXT8/ZEXT16/SEXT16 (Rd, Rs two-register form) which is reused here for consistency"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "BSWAP",
@@ -1481,7 +1756,14 @@
         "ignores_lane_mask",
         "dynamic_pairing_candidate"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists PACK/UNPACK/ZIP/UNZIP/BSWAP/WSWAP/SHUFFLE/MOV at the mnemonic+opcode level only, but the 'Extension and Bounds Faults v1.2f' addendum gives a normative worked layout for the same family's ZEXT8/SEXT8/ZEXT16/SEXT16 (Rd, Rs two-register form) which is reused here for consistency"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "WSWAP",
@@ -1514,7 +1796,14 @@
         "ignores_lane_mask",
         "dynamic_pairing_candidate"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists PACK/UNPACK/ZIP/UNZIP/BSWAP/WSWAP/SHUFFLE/MOV at the mnemonic+opcode level only, but the 'Extension and Bounds Faults v1.2f' addendum gives a normative worked layout for the same family's ZEXT8/SEXT8/ZEXT16/SEXT16 (Rd, Rs two-register form) which is reused here for consistency"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "SHUFFLE",
@@ -1547,7 +1836,14 @@
         "ignores_lane_mask",
         "dynamic_pairing_candidate"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists PACK/UNPACK/ZIP/UNZIP/BSWAP/WSWAP/SHUFFLE/MOV at the mnemonic+opcode level only, but the 'Extension and Bounds Faults v1.2f' addendum gives a normative worked layout for the same family's ZEXT8/SEXT8/ZEXT16/SEXT16 (Rd, Rs two-register form) which is reused here for consistency"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "MOV",
@@ -1580,7 +1876,14 @@
         "ignores_lane_mask",
         "dynamic_pairing_candidate"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists PACK/UNPACK/ZIP/UNZIP/BSWAP/WSWAP/SHUFFLE/MOV at the mnemonic+opcode level only, but the 'Extension and Bounds Faults v1.2f' addendum gives a normative worked layout for the same family's ZEXT8/SEXT8/ZEXT16/SEXT16 (Rd, Rs two-register form) which is reused here for consistency"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "ZEXT8",
@@ -1608,7 +1911,14 @@
       "attributes": [
         "register_only"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists PACK/UNPACK/ZIP/UNZIP/BSWAP/WSWAP/SHUFFLE/MOV at the mnemonic+opcode level only, but the 'Extension and Bounds Faults v1.2f' addendum gives a normative worked layout for the same family's ZEXT8/SEXT8/ZEXT16/SEXT16 (Rd, Rs two-register form) which is reused here for consistency"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "SEXT8",
@@ -1636,7 +1946,14 @@
       "attributes": [
         "register_only"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists PACK/UNPACK/ZIP/UNZIP/BSWAP/WSWAP/SHUFFLE/MOV at the mnemonic+opcode level only, but the 'Extension and Bounds Faults v1.2f' addendum gives a normative worked layout for the same family's ZEXT8/SEXT8/ZEXT16/SEXT16 (Rd, Rs two-register form) which is reused here for consistency"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "ZEXT16",
@@ -1664,7 +1981,14 @@
       "attributes": [
         "register_only"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists PACK/UNPACK/ZIP/UNZIP/BSWAP/WSWAP/SHUFFLE/MOV at the mnemonic+opcode level only, but the 'Extension and Bounds Faults v1.2f' addendum gives a normative worked layout for the same family's ZEXT8/SEXT8/ZEXT16/SEXT16 (Rd, Rs two-register form) which is reused here for consistency"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "SEXT16",
@@ -1692,7 +2016,14 @@
       "attributes": [
         "register_only"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 lists PACK/UNPACK/ZIP/UNZIP/BSWAP/WSWAP/SHUFFLE/MOV at the mnemonic+opcode level only, but the 'Extension and Bounds Faults v1.2f' addendum gives a normative worked layout for the same family's ZEXT8/SEXT8/ZEXT16/SEXT16 (Rd, Rs two-register form) which is reused here for consistency"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "LD",
@@ -1724,7 +2055,14 @@
         "scoreboarded",
         "ordered_memory"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "ST",
@@ -1756,7 +2094,14 @@
         "ordered_memory",
         "store_order_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "B.EQ",
@@ -1782,7 +2127,14 @@
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams; Sec.4 B.* inventory (0x80-0x87)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "B.NE",
@@ -1808,7 +2160,14 @@
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams; Sec.4 B.* inventory (0x80-0x87)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "B.LT",
@@ -1834,7 +2193,14 @@
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams; Sec.4 B.* inventory (0x80-0x87)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "B.GE",
@@ -1860,7 +2226,14 @@
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams; Sec.4 B.* inventory (0x80-0x87)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "B.LTU",
@@ -1886,7 +2259,14 @@
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams; Sec.4 B.* inventory (0x80-0x87)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "B.GEU",
@@ -1912,7 +2292,14 @@
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams; Sec.4 B.* inventory (0x80-0x87)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "B.MI",
@@ -1938,7 +2325,14 @@
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams; Sec.4 B.* inventory (0x80-0x87)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "B.PL",
@@ -1964,7 +2358,14 @@
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 Operand Format Diagrams; Sec.4 B.* inventory (0x80-0x87)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "CALL",
@@ -1988,7 +2389,14 @@
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 only lists CALL/JMP/RET/JMPR at the mnemonic+opcode level (Sec.4, 0x90-0x93); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "JMP",
@@ -2012,7 +2420,14 @@
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 only lists CALL/JMP/RET/JMPR at the mnemonic+opcode level (Sec.4, 0x90-0x93); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "RET",
@@ -2034,7 +2449,14 @@
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 only lists CALL/JMP/RET/JMPR at the mnemonic+opcode level (Sec.4, 0x90-0x93); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "JMPR",
@@ -2058,7 +2480,14 @@
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 only lists CALL/JMP/RET/JMPR at the mnemonic+opcode level (Sec.4, 0x90-0x93); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "PUSH",
@@ -2087,7 +2516,14 @@
         "ordered_memory",
         "extension_allowed"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 only lists PUSH/POP/PUSHM/POPM at the mnemonic+opcode level (Sec.4, 0xA0-0xA3); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "POP",
@@ -2116,7 +2552,14 @@
         "ordered_memory",
         "extension_allowed"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 only lists PUSH/POP/PUSHM/POPM at the mnemonic+opcode level (Sec.4, 0xA0-0xA3); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "PUSHM",
@@ -2145,7 +2588,14 @@
         "ordered_memory",
         "extension_allowed"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 only lists PUSH/POP/PUSHM/POPM at the mnemonic+opcode level (Sec.4, 0xA0-0xA3); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "POPM",
@@ -2174,7 +2624,14 @@
         "ordered_memory",
         "extension_allowed"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 only lists PUSH/POP/PUSHM/POPM at the mnemonic+opcode level (Sec.4, 0xA0-0xA3); no sub-byte field diagram is published"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "QMASK",
@@ -2203,7 +2660,14 @@
         "stream_state",
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram"
+      ],
+      "notes": "semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "QPEEK",
@@ -2232,7 +2696,14 @@
         "stream_state",
         "scoreboarded"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram"
+      ],
+      "notes": "semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "QPUSH",
@@ -2261,7 +2732,14 @@
         "stream_state",
         "scoreboarded"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram"
+      ],
+      "notes": "semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "QPOP",
@@ -2290,7 +2768,14 @@
         "stream_state",
         "scoreboarded"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram"
+      ],
+      "notes": "semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "QDUP",
@@ -2319,7 +2804,14 @@
         "stream_state",
         "scoreboarded"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram"
+      ],
+      "notes": "semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "QREPL",
@@ -2348,7 +2840,14 @@
         "stream_state",
         "scoreboarded"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram"
+      ],
+      "notes": "semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "QCFG",
@@ -2377,7 +2876,14 @@
         "stream_state",
         "scoreboarded"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram"
+      ],
+      "notes": "semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "QCIRC",
@@ -2406,7 +2912,14 @@
         "stream_state",
         "scoreboarded"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram"
+      ],
+      "notes": "semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "QSTEP",
@@ -2432,19 +2945,64 @@
       "attributes": [
         "stream_state"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 'Pinned Circular Streams v1.2h' addendum, explicit bit diagram: 15:12=1011, 11:8=1000, 7:4=Qn/0, 3:0=reserved(0)"
+      ],
+      "notes": ""
     },
     {
-      "mnemonic": "LOOPSET",
+      "mnemonic": "POPMETA",
+      "primary": "0xB",
+      "subop": 9,
+      "format": "STREAM_POPMETA",
+      "operands": [
+        "Rd:Rd+1",
+        "Qn"
+      ],
+      "operand_count": 2,
+      "immediate_bits": 1,
+      "semantics": "Rd = pop Qn; Rd+1 = address of the popped element (Qn.ADDR_LAST after this pop)",
+      "modes": [
+        "SCALAR32",
+        "PACKED16",
+        "PACKED8",
+        "PAIRED64"
+      ],
+      "issue_slot": "B",
+      "latency": 2,
+      "initiation_interval": 1,
+      "flags": [],
+      "exceptions": [],
+      "attributes": [
+        "stream_state",
+        "scoreboarded",
+        "register_pair_dest"
+      ],
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "ADR-STREAM-009 (locked 2026-08-04): fresh opcode allocation for the POPMETA concept ADR-STREAM-008 left 'reserved, not allocated'. No prior docx bit diagram existed; this ADR is the normative definition.",
+        "ADR-STREAM-009 (amended 2026-08-04): meta operand removed, ORD_NEXT/ORD_LAST retired; POPMETA always returns address."
+      ],
+      "notes": "Amended 2026-08-04: the ORD/ADDR meta selector was removed. POPMETA now always returns the popped element's address in Rd+1, matching the also-retired Qn.ORD_NEXT/ORD_LAST register removal (Qn.ADDR_NEXT/ADDR_LAST remain)."
+    },
+    {
+      "mnemonic": "LOOP",
       "primary": "0xC",
       "subop": 0,
-      "format": "LOOP_AGU",
+      "format": "LOOP_IMM8",
       "operands": [
-        "args"
+        "#count"
       ],
-      "operand_count": null,
-      "immediate_bits": null,
-      "semantics": "LOOPSET low-overhead loop or address-generation control",
+      "operand_count": 1,
+      "immediate_bits": 8,
+      "semantics": "Repeat the next 1-4 instructions count times; terminated by the first NOP (ADR-ISA-020)",
       "modes": [
         "SCALAR32"
       ],
@@ -2452,23 +3010,31 @@
       "latency": 1,
       "initiation_interval": 1,
       "flags": [],
-      "exceptions": [],
+      "exceptions": [
+        "LOOP_FORMAT"
+      ],
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 'Hardware Loop Update v1.2g' addendum, explicit bit diagram: 15:12=1100, 11:8=0000(LOOP)/0001(NOP), 7:0=count_minus_one (LOOP only). Adopted 2026-08-04 per ADR-ISA-020 (locked) / ADR-FE-006 (locked); isa/database/aurora_v1_2_isa.json updated (LOOPSET->LOOP, LOOPEND->NOP).",
+        "ADR-ISA-020"
+      ],
+      "notes": ""
     },
     {
-      "mnemonic": "LOOPEND",
+      "mnemonic": "NOP",
       "primary": "0xC",
       "subop": 1,
-      "format": "LOOP_AGU",
-      "operands": [
-        "args"
-      ],
-      "operand_count": null,
-      "immediate_bits": null,
-      "semantics": "LOOPEND low-overhead loop or address-generation control",
+      "format": "LOOP_IMM8",
+      "operands": [],
+      "operand_count": 0,
+      "immediate_bits": 0,
+      "semantics": "No effect outside an active hardware loop; terminates the loop body when one is active",
       "modes": [
         "SCALAR32"
       ],
@@ -2480,19 +3046,27 @@
       "attributes": [
         "control_barrier"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 'Hardware Loop Update v1.2g' addendum, explicit bit diagram: 15:12=1100, 11:8=0000(LOOP)/0001(NOP), 7:0=count_minus_one (LOOP only). Adopted 2026-08-04 per ADR-ISA-020 (locked) / ADR-FE-006 (locked); isa/database/aurora_v1_2_isa.json updated (LOOPSET->LOOP, LOOPEND->NOP).",
+        "ADR-ISA-020"
+      ],
+      "notes": ""
     },
     {
-      "mnemonic": "AGUCFG",
+      "mnemonic": "LOOPR",
       "primary": "0xC",
       "subop": 2,
-      "format": "LOOP_AGU",
+      "format": "LOOP_REG",
       "operands": [
-        "args"
+        "Rs"
       ],
-      "operand_count": null,
-      "immediate_bits": null,
-      "semantics": "AGUCFG low-overhead loop or address-generation control",
+      "operand_count": 1,
+      "immediate_bits": 0,
+      "semantics": "Repeat the next 1-4 instructions Rs times (unsigned, must be nonzero); terminated by the first NOP (ADR-ISA-022)",
       "modes": [
         "SCALAR32"
       ],
@@ -2500,31 +3074,21 @@
       "latency": 1,
       "initiation_interval": 1,
       "flags": [],
-      "exceptions": [],
-      "attributes": [],
-      "aliases": []
-    },
-    {
-      "mnemonic": "STRIDE",
-      "primary": "0xC",
-      "subop": 3,
-      "format": "LOOP_AGU",
-      "operands": [
-        "args"
+      "exceptions": [
+        "LOOP_FORMAT"
       ],
-      "operand_count": null,
-      "immediate_bits": null,
-      "semantics": "STRIDE low-overhead loop or address-generation control",
-      "modes": [
-        "SCALAR32"
+      "attributes": [
+        "control_barrier"
       ],
-      "issue_slot": "A",
-      "latency": 1,
-      "initiation_interval": 1,
-      "flags": [],
-      "exceptions": [],
-      "attributes": [],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "ADR-ISA-022 (locked 2026-08-04): register-count sibling to LOOP_IMM8, allocated at the opcode AGUCFG/STRIDE vacated. No prior docx bit diagram existed; this ADR is the normative definition.",
+        "ADR-ISA-022"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "MRS",
@@ -2550,7 +3114,14 @@
       "attributes": [
         "privileged"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "unresolved",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram (shared layout)"
+      ],
+      "notes": "operands field is a placeholder ('args'); real operand roles not itemized; semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "MSR",
@@ -2576,7 +3147,14 @@
       "attributes": [
         "privileged"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "unresolved",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram (shared layout)"
+      ],
+      "notes": "operands field is a placeholder ('args'); real operand roles not itemized; semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "EI",
@@ -2602,7 +3180,14 @@
       "attributes": [
         "privileged"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "unresolved",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram (shared layout)"
+      ],
+      "notes": "operands field is a placeholder ('args'); real operand roles not itemized; semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "DI",
@@ -2628,7 +3213,14 @@
       "attributes": [
         "privileged"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "unresolved",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram (shared layout)"
+      ],
+      "notes": "operands field is a placeholder ('args'); real operand roles not itemized; semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "IRET",
@@ -2654,7 +3246,14 @@
       "attributes": [
         "privileged"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "unresolved",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram (shared layout)"
+      ],
+      "notes": "operands field is a placeholder ('args'); real operand roles not itemized; semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "ASCALL",
@@ -2680,7 +3279,14 @@
       "attributes": [
         "privileged"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "unresolved",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram (shared layout)"
+      ],
+      "notes": "operands field is a placeholder ('args'); real operand roles not itemized; semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "TIMERLOAD",
@@ -2706,7 +3312,14 @@
       "attributes": [
         "privileged"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "unresolved",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram (shared layout)"
+      ],
+      "notes": "operands field is a placeholder ('args'); real operand roles not itemized; semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "TIMERVEC",
@@ -2732,7 +3345,14 @@
       "attributes": [
         "privileged"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "unresolved",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram (shared layout)"
+      ],
+      "notes": "operands field is a placeholder ('args'); real operand roles not itemized; semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "TIMERCTL",
@@ -2758,7 +3378,14 @@
       "attributes": [
         "privileged"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "unresolved",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram (shared layout)"
+      ],
+      "notes": "operands field is a placeholder ('args'); real operand roles not itemized; semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "RDCYCLE",
@@ -2782,7 +3409,14 @@
       "attributes": [
         "special_register_read"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "unresolved",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "unresolved",
+      "sources": [
+        "AUR-ARCH-005 v1.2d Sec.3 combined STREAM/SYSTEM Operand Format Diagram (shared layout)"
+      ],
+      "notes": "operands field is a placeholder ('args'); real operand roles not itemized; semantics field restates the mnemonic name only; behavior not documented"
     },
     {
       "mnemonic": "MODE",
@@ -2806,7 +3440,14 @@
       "attributes": [],
       "aliases": [
         "MODECLR = MODE #SCALAR32"
-      ]
+      ],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 'Revision 1.2c: MODE and Two-Dimensional Streams' addendum, explicit bit diagram: 15:12=1101, 11:8=1010, 7:5=mode, 4:0=reserved(0)"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "WFI",
@@ -2828,7 +3469,14 @@
       "attributes": [
         "serializing"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 'System Architecture Update v1.2e' addendum: generic encoding diagram 15:12=1101 / 11:8=subop(B-F) / instruction-specific bits, with WFI/WFE/HALT stated to take no operand"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "WFE",
@@ -2850,7 +3498,14 @@
       "attributes": [
         "serializing"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 'System Architecture Update v1.2e' addendum: generic encoding diagram 15:12=1101 / 11:8=subop(B-F) / instruction-specific bits, with WFI/WFE/HALT stated to take no operand"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "HALT",
@@ -2875,7 +3530,14 @@
         "privileged",
         "serializing"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "documented",
+      "encoding_spec_confidence": "documented",
+      "semantic_spec_confidence": "documented",
+      "sources": [
+        "AUR-ARCH-005 'System Architecture Update v1.2e' addendum: generic encoding diagram 15:12=1101 / 11:8=subop(B-F) / instruction-specific bits, with WFI/WFE/HALT stated to take no operand"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "CTXSAVE",
@@ -2906,7 +3568,14 @@
         "ordered_memory",
         "serializing"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 v1.2e addendum defines the 8-bit Context Mask Groups table (bits 0-7 = VOLATILE_GPR..FULL) for CTXSAVE/CTXRESTORE 'Rbase, mask' operands, but the mask table alone fully occupies the remaining byte, leaving no room for Rbase in the base word"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "CTXRESTORE",
@@ -2937,7 +3606,14 @@
         "ordered_memory",
         "serializing"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 v1.2e addendum defines the 8-bit Context Mask Groups table (bits 0-7 = VOLATILE_GPR..FULL) for CTXSAVE/CTXRESTORE 'Rbase, mask' operands, but the mask table alone fully occupies the remaining byte, leaving no room for Rbase in the base word"
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "EXT",
@@ -2966,7 +3642,14 @@
       "attributes": [
         "prefix"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 Sec.6 Encoding Rules: '0xE extension words belong to the preceding base instruction and cannot be branch targets.' No merge-rule bit diagram is published for how EXT payload combines with each base format."
+      ],
+      "notes": ""
     },
     {
       "mnemonic": "CUSTOM",
@@ -2992,7 +3675,14 @@
       "attributes": [
         "reserved"
       ],
-      "aliases": []
+      "aliases": [],
+      "operand_spec_confidence": "inferred",
+      "encoding_spec_confidence": "inferred",
+      "semantic_spec_confidence": "inferred",
+      "sources": [
+        "AUR-ARCH-005 Sec.6 Encoding Rules: '0xF is reserved for implementation-defined/custom expansion and must trap when unsupported.'"
+      ],
+      "notes": ""
     }
   ]
 }

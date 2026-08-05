@@ -13,7 +13,7 @@
 `define AURORA_OP_CONTROL_FLOW     4'h9
 `define AURORA_OP_STACK            4'hA
 `define AURORA_OP_STREAM           4'hB
-`define AURORA_OP_LOOP_AGU         4'hC
+`define AURORA_OP_LOOP             4'hC
 `define AURORA_OP_SYSTEM           4'hD
 `define AURORA_OP_EXTENSION        4'hE
 `define AURORA_OP_CUSTOM_RESERVED  4'hF

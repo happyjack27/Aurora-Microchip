@@ -46,13 +46,17 @@ This preservation copy combines the original ADR register, standalone later ADRs
 | ADR-STREAM-007 | ADR-STREAM-007 — Explicit Stream Access and Side-Effect-Free Moves | Partially superseded | architecture-records/ADR-STREAM-007_Explicit_Stream_Access_and_Pure_Moves.docx | Pure MOV/CMOV rule retained; stream-access exclusivity superseded by ADR-STREAM-008. |
 | ADR-STREAM-008 | ADR-STREAM-008 — Implicit Stream Access for Stream-Capable Computation | LOCKED — SUPERSEDES CONFLICTING PORTIONS OF ADR-STREAM-007 | architecture-records/ADR-STREAM-008_Implicit_Stream_Access_for_Computation.docx | Standalone record preserved in decision-logs/architecture-records. |
 | ADR-FE-006 | ADR-FE-006 — Two-Entry Prefetch Buffer and Eight-Word Hardware Loop | LOCKED | architecture-records/ADR-FE-006_Two_Entry_Prefetch_and_Eight_Word_Loop.docx | Standalone record preserved in decision-logs/architecture-records. |
+| ADR-STREAM-009 | ADR-STREAM-009 — POPMETA Opcode Allocation | LOCKED | architecture-records/ADR-STREAM-009_POPMETA_Opcode_Allocation.md | Allocates opcode 0xB9 (format STREAM_POPMETA); supersedes ADR-STREAM-008's "reserved, not allocated" clause. isa/database updated to match. |
+| ADR-DSP-017 | ADR-DSP-017 — TRACKMIN/TRACKMAX Fused Compare-and-Track | PROPOSED — OPEN, NOT LOCKED | architecture-records/ADR-DSP-017_TRACKMIN_TRACKMAX_Fused_Compare_and_Track.md | Formal tracking of an explicitly undecided question; no opcode/encoding chosen yet. |
+| ADR-ISA-022 | ADR-ISA-022 — LOOPR Register-Count Hardware Loop and AGU Retirement | LOCKED | architecture-records/ADR-ISA-022_LOOPR_Register_Count_Hardware_Loop_and_AGU_Retirement.md | Retires AGUCFG(0xC2)/STRIDE(0xC3); allocates LOOPR at 0xC2 (format LOOP_REG). isa/database updated to match. |
+| ADR-DSP-018 | ADR-DSP-018 — MAC/MAS Accumulator Operand Typing | LOCKED (typing + encoding) | architecture-records/ADR-DSP-018_MAC_MAS_Accumulator_Operand_Typing.md | Corrects MAC/MAS operand 0 from GPR dst to accumulator selector; accumulator-selector bit (11, freed from RRR_OR_ACC's subop) resolved 2026-08-04, format RRR_ACC. |
 
 # Late-Session Decisions Pending Formal ADR Numbering
 
 | **Provisional ID** | **Decision** | **Status** | **Source** | **Notes** |
 |----|----|----|----|----|
-| LATE-STREAM-POPMETA | POPMETA aligned-pair stream consume with value + ORD/ADDR metadata | Locked | RECENT_DECISIONS_SNAPSHOT.md | Register-pair destination; atomic data+metadata; exact final encoding still to be reconciled with opcode table. |
-| LATE-DSP-TRACK | Fused TRACKMIN/TRACKMAX compare-and-track pair operation | Reserved / benchmark | RECENT_DECISIONS_SNAPSHOT.md | Not baseline; compare against POPMETA + CMP + two CMOVs. |
+| LATE-STREAM-POPMETA | POPMETA aligned-pair stream consume with value + ORD/ADDR metadata | Superseded by ADR-STREAM-009 | RECENT_DECISIONS_SNAPSHOT.md | Promoted 2026-08-04: opcode 0xB9 allocated, isa/database updated. See ADR-STREAM-009. |
+| LATE-DSP-TRACK | Fused TRACKMIN/TRACKMAX compare-and-track pair operation | Promoted to ADR-DSP-017 (still open) | RECENT_DECISIONS_SNAPSHOT.md | Not baseline; compare against POPMETA + CMP + two CMOVs. See ADR-DSP-017 for the tracked open decision. |
 | LATE-FE-REPLAY | Resident replay for short backward-relative branches in the eight-word front-end window | Locked | RECENT_DECISIONS_SNAPSHOT.md | Target derived from relative offset; no refetch on hit. |
 | LATE-FE-SINGLEENTRY | Compiler-enforced single-entry rule for resident-replay regions | Locked | RECENT_DECISIONS_SNAPSHOT.md | Hardware does not detect or enforce interior entry. |
 | LATE-FE-LOOPROLE | Explicit hardware loops retained alongside resident replay | Locked | RECENT_DECISIONS_SNAPSHOT.md | Hardware loop removes decrement/test/branch and final-exit misprediction. |

@@ -156,6 +156,8 @@ CSV_COLUMNS = [
     "mnemonic", "primary", "subop", "format", "operands", "operand_count",
     "immediate_bits", "semantics", "modes", "issue_slot", "latency",
     "initiation_interval", "flags", "exceptions", "attributes", "aliases",
+    "operand_spec_confidence", "encoding_spec_confidence",
+    "semantic_spec_confidence", "sources", "notes",
 ]
 
 

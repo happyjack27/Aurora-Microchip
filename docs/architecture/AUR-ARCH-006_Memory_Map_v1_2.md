@@ -91,9 +91,6 @@ The fixed ITCM and DTCM windows provide software portability. An implementation 
 | 0xF000_0028 | TIMER_VECTOR | RW privileged | Interrupt vector pended when timer expires |
 | 0xF000_002C | TIMER_CTRL | RW privileged | Enable, hold, pending-clear, tick prescale |
 | 0xF000_0030 | STREAM_MASK | RW | One-cycle Q0/Q1 enable mask |
-| 0xF000_0034 | DSP_DIRTY | RW privileged | Accumulator/stream extended-state dirty bits |
-| 0xF000_0040 | ASC_ENTRY_BASE | RO/RW profile | ASC service entry table location |
-| 0xF000_0050 | MPU_CTRL | RW privileged | Memory protection enable and default policy |
 | 0xF000_0060 | DMA_GLOBAL_CTRL | RW privileged | Global DMA enable, fault and arbitration policy |
 
 # 7. Countdown Timer and Monotonic Counter

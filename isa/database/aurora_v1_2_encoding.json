@@ -26,16 +26,20 @@
     "              normative formats, ONLY so that mnemonic->bits translation",
     "              is possible today. Treat as provisional pending an ADR.",
     "",
-    "KNOWN OPEN CONFLICT (flagged, not resolved here):",
-    "  The canonical instruction DB assigns 0xC0..0xC3 to LOOPSET/LOOPEND/",
-    "  AGUCFG/STRIDE (format LOOP_AGU). The 'Hardware Loop Update - Aurora",
-    "  v1.2g' addendum in AUR-ARCH-005 instead defines 0xC0=LOOP (format",
-    "  LOOP_IMM8, repeat-with-replay semantics) and 0xC1=NOP, with 0xC2/0xC3",
-    "  unassigned. These are mutually exclusive designs for the same opcode",
-    "  slot. Both layouts are recorded below (LOOP_AGU as inferred/legacy,",
-    "  LOOP_IMM8/SYSTEM_NONE-style NOP as normative-but-conflicting) - a human",
-    "  decision is required on which one is current before silicon/RTL work",
-    "  proceeds on primary opcode 0xC."
+    "RESOLVED 2026-08-04 (was: KNOWN OPEN CONFLICT):",
+    "  0xC0/0xC1 are locked as LOOP/NOP (format LOOP_IMM8) per ADR-ISA-020 and",
+    "  ADR-FE-006. AGUCFG(0xC2)/STRIDE(0xC3) - never backed by any ADR - are",
+    "  RETIRED per ADR-ISA-022 and removed from the DB. 0xC2 is reallocated",
+    "  to LOOPR (format LOOP_REG, register-supplied loop count), also per",
+    "  ADR-ISA-022. 0xC3-0xC9 remain reserved.",
+    "",
+    "ALSO NEW 2026-08-04: POPMETA allocated a real opcode (0xB9, format",
+    "  STREAM_POPMETA) per ADR-STREAM-009, closing the 'reserved, not",
+    "  allocated' gap left by ADR-STREAM-008. MAC/MAS operand 0 corrected",
+    "  from a bare GPR placeholder to an explicit accumulator selector per",
+    "  ADR-DSP-018. Every instruction gained operand_spec_confidence/",
+    "  encoding_spec_confidence/semantic_spec_confidence/sources/notes",
+    "  fields (see isa/database/apply_proposal_fix_issues_1.py)."
   ],
   "register_field": {
     "width_bits": 4,
@@ -56,15 +60,29 @@
     },
     "RRR_OR_ACC": {
       "status": "normative",
-      "source": "AUR-ARCH-005 v1.2d Sec.5 (worked example DIVSTEP R1,R1,R2 = 0x3412); MUL/MULH/MAC/MAS share the same physical layout, differing only in subop and accumulator semantics",
+      "source": "AUR-ARCH-005 v1.2d Sec.5 (worked example DIVSTEP R1,R1,R2 = 0x3412); MUL/MULH/DIVSTEP/DIV share the same physical layout and 2-address (Rd=Ra) convention",
       "used_by_format_names": ["RRR_OR_ACC"],
       "fields": [
         { "name": "primary", "bits": [15, 12] },
-        { "name": "subop",   "bits": [11, 8] },
+        { "name": "subop",   "bits": [10, 8] },
         { "name": "Rd_Ra",   "bits": [7, 4] },
         { "name": "Rb",      "bits": [3, 0] }
       ],
-      "note": "For MAC/MAS the implicit accumulator (A0/A1) is selected by subop, not by an operand bit."
+      "note": "subop only ever takes values 0-5 (MUL/MULH/MAC/MAS/DIVSTEP/DIV) so 3 bits (10:8) fully cover it; bit 11 is unused/reserved (must be 0) for this format's own mnemonics (MUL/MULH/DIVSTEP/DIV). MAC/MAS repurpose that freed bit 11 as an accumulator selector - see format RRR_ACC, ADR-DSP-018."
+    },
+    "RRR_ACC": {
+      "status": "normative",
+      "source": "ADR-DSP-018 (locked, amended 2026-08-04): accumulator-selector bit resolution",
+      "used_by_format_names": ["RRR_ACC"],
+      "fields": [
+        { "name": "primary", "bits": [15, 12] },
+        { "name": "acc_sel", "bits": [11, 11] },
+        { "name": "subop",   "bits": [10, 8] },
+        { "name": "Ra",      "bits": [7, 4] },
+        { "name": "Rb",      "bits": [3, 0] }
+      ],
+      "acc_enum": { "0": "A0", "1": "A1" },
+      "note": "MAC/MAS physically share primary=0x3 and the subop numbering (2=MAC, 3=MAS) with RRR_OR_ACC's other members, but unlike those 2-address (Rd=Ra) ops, Ra/Rb here are two genuinely independent register operands: bit 11 (always 0/unused across RRR_OR_ACC's subop range 0-5) is a dedicated acc_sel bit (0=A0, 1=A1) rather than part of a 2-address destination field."
     },
     "RRI": {
       "status": "normative",
@@ -308,26 +326,41 @@
         "status": "inferred"
       }
     },
-    "LOOP_AGU": {
-      "status": "inferred-legacy-conflicting",
-      "source": "Canonical isa/database assigns LOOPSET(0xC0)/LOOPEND(0xC1)/AGUCFG(0xC2)/STRIDE(0xC3) to this format, but no AUR-ARCH-005 bit diagram exists for it, and the v1.2g addendum reassigns 0xC0/0xC1 to an entirely different LOOP/NOP mechanism (see LOOP_IMM8 below). CONFLICT NOT RESOLVED - flagged for human decision.",
-      "used_by_format_names": ["LOOP_AGU"],
+    "LOOP_REG": {
+      "status": "normative",
+      "source": "ADR-ISA-022 (locked 2026-08-04): register-count sibling to LOOP_IMM8, allocated at the opcode AGUCFG/STRIDE vacated. No prior docx bit diagram existed; this ADR is the normative definition.",
+      "used_by_format_names": ["LOOP_REG"],
       "fields": [
         { "name": "primary",  "bits": [15, 12] },
-        { "name": "subop",    "bits": [11, 8] },
-        { "name": "args",     "bits": [7, 0] }
-      ]
+        { "name": "subop",    "bits": [11, 8], "must_be": 2 },
+        { "name": "Rs",       "bits": [7, 4] },
+        { "name": "reserved", "bits": [3, 0], "must_be": 0 }
+      ],
+      "note": "Iteration count is read from Rs at LOOPR retirement (unsigned, must be nonzero - a zero count is illegal). Same NOP-terminated body machinery, restrictions, and eight-word capture window as LOOP_IMM8/ADR-ISA-020/ADR-FE-006."
     },
     "LOOP_IMM8": {
-      "status": "normative-but-conflicts-with-LOOP_AGU",
-      "source": "AUR-ARCH-005 'Hardware Loop Update v1.2g' addendum, explicit bit diagram: 15:12=1100, 11:8=0000(LOOP)/0001(NOP), 7:0=count_minus_one (LOOP only)",
-      "used_by_format_names": ["LOOP_IMM8 (not currently referenced by any canonical mnemonic - see conflict note)"],
+      "status": "normative",
+      "source": "AUR-ARCH-005 'Hardware Loop Update v1.2g' addendum, explicit bit diagram: 15:12=1100, 11:8=0000(LOOP)/0001(NOP), 7:0=count_minus_one (LOOP only). Adopted 2026-08-04 per ADR-ISA-020 (locked) / ADR-FE-006 (locked); isa/database/aurora_v1_2_isa.json updated (LOOPSET->LOOP, LOOPEND->NOP).",
+      "used_by_format_names": ["LOOP_IMM8"],
       "fields": [
         { "name": "primary",         "bits": [15, 12] },
         { "name": "subop",           "bits": [11, 8] },
         { "name": "count_minus_one", "bits": [7, 0] }
       ],
       "note": "Iterations = count_minus_one + 1 (range 1-256). NOP (subop=1) ignores bits [7:0], must be 0."
+    },
+    "STREAM_POPMETA": {
+      "status": "normative",
+      "source": "ADR-STREAM-009 (locked 2026-08-04, amended 2026-08-04): fresh opcode allocation for the POPMETA concept ADR-STREAM-008 left 'reserved, not allocated'. Amendment removed the ORD/ADDR meta selector; POPMETA always returns address.",
+      "used_by_format_names": ["STREAM_POPMETA"],
+      "fields": [
+        { "name": "primary",  "bits": [15, 12] },
+        { "name": "subop",    "bits": [11, 8], "must_be": 9 },
+        { "name": "Rd",       "bits": [7, 4] },
+        { "name": "Qn",       "bits": [3, 3] },
+        { "name": "reserved", "bits": [2, 0], "must_be": 0 }
+      ],
+      "note": "Rd receives the popped value; the adjacent register Rd+1 (not separately encoded, same convention as other aligned-pair forms) always receives the popped element's address (Qn.ADDR_LAST). The former ORD_LAST option and its selector bit were retired 2026-08-04 along with the Qn.ORD_NEXT/ORD_LAST system registers."
     },
     "EXT": {
       "status": "inferred",

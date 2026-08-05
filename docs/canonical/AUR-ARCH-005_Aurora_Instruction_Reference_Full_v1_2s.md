@@ -1402,17 +1402,21 @@ AUR-ARCH-005 Addendum — Explicit Stream Access v1.2q
 |----|----|----|
 | Qn.ADDR_NEXT | Address of the next element to be transferred | After successful POP/PUSH |
 | Qn.ADDR_LAST | Address of the most recently transferred element | On successful POP/PUSH |
-| Qn.ORD_NEXT | Linear ordinal of the next logical element | After successful POP/PUSH |
-| Qn.ORD_LAST | Linear ordinal of the most recently transferred logical element | On successful POP/PUSH |
+
+**Amendment (August 4, 2026):** `Qn.ORD_NEXT` and `Qn.ORD_LAST` are retired. Ordinal/index tracking
+was redundant with `Qn.COUNT` for loop control and otherwise served only `POPMETA`'s retired `ORD`
+option (see below).
 
 These values are read through the existing system-register transfer instruction, for example:\
 \
-MRS R6, Q0.ORD_LAST\
 MRS R7, Q0.ADDR_LAST
 
 # Packed Ordinal Rule
 
-When one POP transfers a packed group, ORD_LAST identifies the first scalar lane in that group. The global scalar ordinal for lane k is ORD_LAST + k.
+**Retired (August 4, 2026):** this rule depended on `ORD_LAST`, which no longer exists. When a
+packed group's per-lane identity is needed, derive it from `ADDR_LAST` and the element size
+(`(ADDR_LAST - stream_base) / element_size` for lane 0; add the lane number for others) rather than
+reading an ordinal register.
 
 # Hardware-Loop Implication
 
@@ -1464,6 +1468,10 @@ MOV and CMOV accept only GPR values. Packed CMOV performs lane-wise selection us
 
 POPMETA Rd:Rd+1, Qn, meta remains a reserved encoding concept. If allocated later, Rd:Rd+1 is an aligned pair: Rd receives popped data and Rd+1 receives selected metadata such as ORD_LAST or ADDR_LAST.
 
+**Note:** superseded by ADR-STREAM-009 (allocated the opcode) and its August 4, 2026 amendment
+(removed the `meta` operand — `Rd+1` always receives `ADDR_LAST`). Left here as historical record
+of the v1.2r reserved-concept text; do not use `ORD`/`ADDR` selector syntax in new code.
+
 AUR-ARCH-005 Addendum — Prefetch and Eight-Word Hardware Loops v1.2s
 
 # Instruction Prefetch
@@ -1508,10 +1516,12 @@ Bodies longer than eight words are not captured in the local replay window. They
 # Example: Six-Instruction Argmax Loop
 
 LOOPR Rcount\
-POPMETA R4:R5, Q0, ORD\
+POPMETA R4:R5, Q0\
 ABS R4, R4\
 CMP Rbest, R4\
 CMOV.LT Rbest, R4\
-CMOV.LT Rbestidx, R5\
+CMOV.LT Rbestaddr, R5\
 REDUCE.ADD A0, R4, ACC\
-; six one-word instructions occupy six of eight loop words
+; six one-word instructions occupy six of eight loop words\
+; R5/Rbestaddr now hold the address of the winning element (POPMETA no longer returns an ordinal);\
+; recover an index in software via (addr - stream_base) / element_size if one is needed
